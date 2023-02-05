@@ -1,0 +1,17 @@
+---
+username: hest
+
+shell: /bin/zsh
+
+packages:
+  - zsh
+  - vim
+  - htop
+  - vscode
+
+pip_install_packages:
+  - name: docker
+
+docker_apt_gpg_key: "https://download.docker.com/linux/ubuntu/gpg"
+
+docker_apt_repository: "deb https://download.docker.com/linux/ubuntu jammy stable"

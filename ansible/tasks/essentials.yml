@@ -1,0 +1,30 @@
+---
+- name: Update packages
+  ansible.builtin.apt:
+    update_cache: true
+    upgrade: true
+
+- name: install packages
+  ansible.builtin.package:
+    name: "{{ packages }}"
+    state: latest
+
+- name: Disable SSH password authentication
+  ansible.builtin.lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^#PasswordAuthentication yes"
+    line: "PasswordAuthentication no"
+  register: sshd_config
+
+- name: enable passwordless sudo for "{{ username }}"
+  ansible.builtin.lineinfile:
+    dest: /etc/sudoers
+    regexp: "^%wheel"
+    line: "{{ username }} ALL=(ALL) NOPASSWD: ALL"
+    validate: "usr/sbin/visudo -cf %s"
+
+- name: restart ssh daemon
+  ansible.builtin.service:
+    name: sshd
+    state: restarted
+  when: sshd_config.changed
