@@ -10,7 +10,6 @@
     #  tags: ["homebrew"]
 
   tasks:
-    - name: dotfiles
-    - import_tasks: tasks/dotfiles.yml
-      when: configure_sudoers
-      tags: ["sudoers"]
+    - name: Dotfiles
+      import_tasks: tasks/dotfiles.yml
+      tags: ["dotfiles"]
