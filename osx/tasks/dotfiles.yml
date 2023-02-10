@@ -3,6 +3,9 @@
   shell: 'sh -c "$(curl -fsLS get.chezmoi.io)" -b /usr/local/bin/'
   changed_when: false
 
+- name: Move to bin
+  command: "mv ./bin/chezmoi /usr/local/bin/chezmoi"
+
 - name: Initialize dotfiles
   shell: "chezmoi init --apply {{ github_name }}"
   changed_when: false
