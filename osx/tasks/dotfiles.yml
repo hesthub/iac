@@ -1,6 +1,6 @@
 ---
 - name: Download chezmoi
-  shell: 'sh -c "$(curl -fsLS get.chezmoi.io)" -b /usr/local/bin/'
+  shell: 'sh -c "$(curl -fsLS get.chezmoi.io)" '
   changed_when: false
 
 - name: Move to bin
