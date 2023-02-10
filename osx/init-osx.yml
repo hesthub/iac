@@ -1,0 +1,16 @@
+---
+- hosts: all
+
+  vars_files:
+    - default.config.yml
+
+  roles:
+    # - role: elliotweiser.osx-command-line-tools
+    # - role: geerlingguy.mac.homebrew
+    #  tags: ["homebrew"]
+
+  tasks:
+    - name: dotfiles
+    - import_tasks: tasks/dotfiles.yml
+      when: configure_sudoers
+      tags: ["sudoers"]

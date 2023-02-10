@@ -1,0 +1,5 @@
+---
+- name: Initialize chezmoi & dotfiles
+  command: 'sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply {{ github_name }}'
+  when: chezmoi_init_url
+  changed_when: false
