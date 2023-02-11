@@ -31,8 +31,7 @@
   file:
     path: "{{ homebrew_brew_bin_path }}"
     state: directory
-    owner: "{{ ansible_user_id }}"
-    group: admin
+    owner: "{{ homebrew_user }}"
     mode: 0775
   become: true
 
