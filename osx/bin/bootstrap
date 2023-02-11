@@ -3,7 +3,7 @@ xcode-select --install
 sudo xcodebuild -license
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 python3 get-pip.py
-sudo pip3 install --ignore-installed ansible
-ansible-galaxy install -r requirements.yml
+python3 -m pip install --user SomeProject
+#ansible-galaxy install -r requirements.yml
 
-ansible-playbook -i "localhost," -c local init-osx.yml --ask-become-pass
+#ansible-playbook -i "localhost," -c local init-osx.yml --ask-become-pass

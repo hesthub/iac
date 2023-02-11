@@ -5,6 +5,6 @@ homebrew_install_path: "{{ homebrew_prefix }}/Homebrew"
 homebrew_brew_bin_path: /usr/local/bin
 homebrew_upgrade_all_packages: false
 homebrew_use_brewfile: true
-homebrew_user: test
+homebrew_user: hest
 homebrew_taps:
   - homebrew/core
