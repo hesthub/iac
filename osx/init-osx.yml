@@ -6,9 +6,8 @@
     - default.config.yml
 
   roles:
-    # - role: elliotweiser.osx-command-line-tools
-    # - role: geerlingguy.mac.homebrew
-    #  tags: ["homebrew"]
+    - role: homebrew
+      tags: ["homebrew"]
 
   tasks:
     - name: Dotfiles
