@@ -86,12 +86,12 @@
 
     - name: Check for Brewfile.
       stat:
-        path: "{{ $HOME }}/Brewfile"
+        path: "{{ lookup('env','HOME')/Brewfile }}"
       register: homebrew_brewfile
       check_mode: false
 
     - name: Install from Brewfile.
-      command: "{{ homebrew_brew_bin_path }}/brew bundle chdir={{ $HOME }}"
+      command: "{{ homebrew_brew_bin_path }}/brew bundle chdir={{ lookup('env','HOME') }}"
       when: homebrew_brewfile.stat.exists
 
     - name: Upgrade all homebrew packages (if configured).
