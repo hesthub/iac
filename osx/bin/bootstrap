@@ -1,9 +1,9 @@
 #!/bin/sh
 xcode-select --install
 sudo xcodebuild -license
-python3 -m pip install --user ansible 
-
-PATH=$PATH:/Users/$USER/Library/Python/3.9/bin
+export PATH="$HOME/Library/Python/3.8/bin:/opt/homebrew/bin:$PATH"
+sudo pip3 install --upgrade pip
+pip3 install ansible
 #ansible-galaxy install -r requirements.yml
 
 ansible-playbook -i "localhost," -c local init-osx.yml --ask-become-pass
