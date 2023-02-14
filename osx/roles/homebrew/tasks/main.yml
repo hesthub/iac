@@ -66,7 +66,7 @@
     owner: "{{ ansible_user_id }}"
     group: "{{ ansible_user_gid }}"
   become: true
-  loop: "{{ homebrew_folders_base + homebrew_folders_additional }}"
+  loop: "{{ homebrew_folders_base }}"
 
 - name: Collect package manager fact.
   setup:
