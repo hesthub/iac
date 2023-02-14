@@ -6,6 +6,7 @@ https://austincloud.guru/2020/05/07/automating-macos-configuration/
 https://github.com/geerlingguy/mac-dev-playbook
 https://medium.com/tensult/setting-up-a-mac-using-ansible-3dcf63c1d324
 
+https://github.com/ansible-macos/macos-playbook
 dotfiles:
 https://thebroken.link/managing-dotfiles-with-ansible/
 https://medium.com/espinola-designs/manage-your-dotfiles-with-ansible-6dbedd5532bb
