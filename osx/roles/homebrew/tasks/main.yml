@@ -1,16 +1,16 @@
+---
 - name: Ensure Homebrew parent directory has correct permissions.
   file:
     path: "{{ homebrew_prefix }}"
     owner: root
     state: directory
-    mode: 0775
   become: true
 
 - name: Ensure Homebrew directory exists.
   file:
     path: "{{ homebrew_install_path }}"
     owner: "{{ ansible_user_id }}"
-    group: admin
+    group: "{{ ansible_user_gid }}"
     state: directory
     mode: 0775
   become: true
@@ -22,15 +22,17 @@
     version: master
     dest: "{{ homebrew_install_path }}"
     update: false
-    accept_hostkey: true
     depth: 1
+  become: true
+  become_user: "{{ ansible_user_id }}"
 
 # Adjust Homebrew permissions.
 - name: Ensure proper permissions and ownership on homebrew_brew_bin_path dirs.
   file:
     path: "{{ homebrew_brew_bin_path }}"
     state: directory
-    owner: "{{ homebrew_user }}"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_gid }}"
     mode: 0775
   become: true
 
@@ -39,13 +41,15 @@
     path: "{{ homebrew_install_path }}"
     state: directory
     owner: "{{ ansible_user_id }}"
-    group: admin
+    group: "{{ ansible_user_gid }}"
     recurse: true
   become: true
 
+# Place brew binary in proper location and complete setup.
 - name: Check if homebrew binary is already in place.
   stat: "path={{ homebrew_brew_bin_path }}/brew"
   register: homebrew_binary
+  check_mode: false
 
 - name: Symlink brew to homebrew_brew_bin_path.
   file:
@@ -55,14 +59,47 @@
   when: not homebrew_binary.stat.exists
   become: true
 
-- name: Force update brew after installation.
-  command: "{{ homebrew_brew_bin_path }}/brew update --force"
-  when: not homebrew_binary.stat.exists
+- name: Ensure proper homebrew folders are in place.
+  file:
+    path: "{{ homebrew_prefix }}/{{ item }}"
+    state: directory
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_gid }}"
+  become: true
+  loop: "{{ homebrew_folders_base + homebrew_folders_additional }}"
 
-- name: Ensure configured taps are tapped.
-  homebrew_tap: "tap={{ item }} state=present"
-  with_items: "{{ homebrew_taps }}"
+- name: Collect package manager fact.
+  setup:
+    filter: ansible_pkg_mgr
 
-- name: Upgrade all homebrew packages (if configured).
-  homebrew: update_homebrew=yes upgrade_all=yes
-  when: homebrew_upgrade_all_packages
+- name: Perform brew installation.
+  block:
+    - name: Force update brew after installation.
+      command: "{{ homebrew_brew_bin_path }}/brew update --force"
+      when: not homebrew_binary.stat.exists
+
+    - name: Where is the cache?
+      command: "{{ homebrew_brew_bin_path }}/brew --cache"
+      register: homebrew_cache_path
+      changed_when: false
+      check_mode: false
+
+    - name: Check for Brewfile.
+      stat:
+        path: "{{ $HOME }}/Brewfile"
+      register: homebrew_brewfile
+      check_mode: false
+
+    - name: Install from Brewfile.
+      command: "{{ homebrew_brew_bin_path }}/brew bundle chdir={{ $HOME }}"
+      when: homebrew_brewfile.stat.exists
+
+    - name: Upgrade all homebrew packages (if configured).
+      homebrew: update_homebrew=yes upgrade_all=yes
+      notify:
+        - Clear homebrew cache
+
+  # Privilege escalation is only required for inner steps when
+  # the `ansible_user_id` doesn't match the `ansible_user_id`
+  become: false
+  become_user: "{{ ansible_user_id }}"

@@ -13,6 +13,7 @@ https://stackoverflow.com/questions/50277149/how-do-i-automate-dotfiles-setup-ma
 
 https://github.com/pearl-core/pearl#description
 
+https://github.com/ansible-macos/macos-playbook
 1: set OS defaults:
 https://github.com/ricbra/dotfiles/blob/master/bin/setup_osx
 https://git.herrbischoff.com/awesome-macos-command-line/about/#developer
