@@ -1,1 +1,12 @@
 ---
+- name: Download chezmoi
+  shell: 'sh -c "$(curl -fsLS get.chezmoi.io)" '
+  changed_when: false
+
+- name: Move to PATH
+  command: "mv ./bin/chezmoi /usr/local/bin/chezmoi"
+  changed_when: false
+
+- name: Initialize dotfiles repo
+  command: "chezmoi init --apply {{ github_name }}"
+  changed_when: false

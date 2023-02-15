@@ -1,0 +1,21 @@
+
+fancy_echo() {
+  local fmt="$1"; shift
+
+  # shellcheck disable=SC2059
+  printf "\\n$fmt\\n" "$@"
+}
+
+install_xcode() {
+    xcode-select -p >/dev/null 2>&1 || {
+        echo ""
+        echo "==========================="
+        echo "Installing Developer Tools..."
+        echo "==========================="
+        INPROGRESS_FLAG="/tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress"
+        touch "${INPROGRESS_FLAG}"
+        trap 'rm -f "${INPROGRESS_FLAG}"' EXIT
+        while ! ( xcode-select -p &>/dev/null ); do softwareupdate -i -a || exit $?; done
+        rm -f "${INPROGRESS_FLAG}"
+    }
+}
