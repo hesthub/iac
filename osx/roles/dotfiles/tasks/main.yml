@@ -6,6 +6,7 @@
 - name: Move to PATH
   command: "mv ./bin/chezmoi /usr/local/bin/chezmoi"
   changed_when: false
+  become: true
 
 - name: Initialize dotfiles repo
   command: "chezmoi init --apply {{ github_name }}"
