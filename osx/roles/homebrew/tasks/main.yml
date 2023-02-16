@@ -86,7 +86,7 @@
 
     - name: Check for Brewfile.
       stat:
-        path: "{{ lookup('env', 'HOME') / Brewfile }}"
+        path: "{{ lookup('env', 'HOME') /Brewfile }}"
       register: homebrew_brewfile
       check_mode: false
 
