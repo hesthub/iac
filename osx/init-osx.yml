@@ -2,9 +2,6 @@
 - name: Bootstrap OSX dev machine
   hosts: all
 
-  vars_files:
-    - default.config.yml
-
   roles:
 
     - role: dotfiles
