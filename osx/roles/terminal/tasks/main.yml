@@ -1,1 +1,4 @@
 ---
+- name: "[main] Import omz tasks"
+  import_tasks: omz.yml
+  tags: macterm

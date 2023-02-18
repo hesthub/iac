@@ -9,3 +9,7 @@
 
     - role: homebrew
       tags: ["homebrew"]
+
+    - role: terminal
+      tags: ["terminal"]
+      

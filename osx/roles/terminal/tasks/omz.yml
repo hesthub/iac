@@ -1,14 +1,4 @@
 ---
-- name: "Ensure iTerm2 is installed using Homebrew Cask"
-  community.general.homebrew_cask:
-    name: zsh
-    state: present
-  register: zsh_installed
-  until: zsh_installed is succeeded
-  tags:
-    - macterm
-    - macterm_iterm2
-
 - name: "[install] Clone oh-my-zsh repo"
   git:
     repo: https://github.com/robbyrussell/oh-my-zsh.git
@@ -23,7 +13,7 @@
     repo: https://github.com/zsh-users/zsh-autosuggestions
     dest: "{{ omz_home }}/custom/plugins/zsh-autosuggestions"
     version: master
-    update: yes
+    update: true
   become: true
   tags: omz
 
@@ -32,7 +22,7 @@
     repo: https://github.com/zsh-users/zsh-history-substring-search
     dest: "{{ omz_home }}/custom/plugins/zsh-history-substring-search"
     version: master
-    update: yes
+    update: true
   become: true
   tags: omz
 
@@ -41,7 +31,7 @@
     repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
     dest: "{{ omz_home }}/custom/plugins/zsh-syntax-highlighting"
     version: master
-    update: yes
+    update: true
   become: true
   tags: omz
 
