@@ -20,32 +20,14 @@
     recurse: true
   when: "omz_clone is changed"
 
-- name: "[install]: Clone zsh-autosuggestions plugin"
-  git:
-    repo: https://github.com/zsh-users/zsh-autosuggestions
-    dest: "{{ omz_install_path }}/custom/plugins/zsh-autosuggestions"
-    version: master
-    update: true
-  become: true
-  tags: omz
+- name: "install plugin autosuggestions"
+  shell: git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
-- name: "[install]: Clone zsh-history-substring-search plugin"
-  git:
-    repo: https://github.com/zsh-users/zsh-history-substring-search
-    dest: "{{ omz_install_path }}/custom/plugins/zsh-history-substring-search"
-    version: master
-    update: true
-  become: true
-  tags: omz
+- name: "install plugin zsh-syntax-highlighting"
+  shell: git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
-- name: "[install]: Clone zsh-syntax-highlighting plugin"
-  git:
-    repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
-    dest: "{{ omz_install_path }}/custom/plugins/zsh-syntax-highlighting"
-    version: master
-    update: true
-  become: true
-  tags: omz
+- name: "install plugin zsh-syntax-highlighting"
+  shell: git clone https://github.com/zsh-users/zsh-history-substring-search ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-history-substring-search
 
 # Post setup
 - name: "Set zsh as default shell"
