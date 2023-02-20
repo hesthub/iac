@@ -2,3 +2,18 @@
 - name: "[main] Import omz tasks"
   import_tasks: omz.yml
   tags: macterm
+
+- name: "[misc]: clone bash-insulter"
+  git:
+    repo: https://github.com/hkbakke/bash-insulter.git
+    dest: "{{ config_dir }}/bash-insulter"
+    version: master
+    update: true
+  become: true
+  tags: omz
+
+- name: "[misc] install bash-insulter"
+  ansible.builtin.copy:
+    src: "{{ config_dir }}/bash-insulter/src/bash.command-not-found"
+    dest: /etc/
+  become: true

@@ -1,9 +1,10 @@
 ---
-- name: Establish install location.
+# install
+- name: "[omz]: Establish install location."
   set_fact:
     omz_install_path: "{{ lookup('env', 'HOME') }}/{{ omz_install_directory }}"
 
-- name: Clone Oh My ZSH repo for user.
+- name: "[omz]: Clone Oh My ZSH repo for user."
   git:
     repo: "{{ omz_git_repository }}"
     dest: "{{ omz_install_path }}"
@@ -12,7 +13,7 @@
     version: "master"
   register: "omz_clone"
 
-- name: Set ownership on newly cloned repository.
+- name: "[omz]: Set ownership on newly cloned repository."
   file:
     path: "{{ omz_install_path }}"
     owner: "{{ ansible_user_id }}"
@@ -20,7 +21,8 @@
     recurse: true
   when: "omz_clone is changed"
 
-- name: "[install]: Clone zsh-autosuggestions plugin"
+# OMZ plugins
+- name: "[omz]: Clone zsh-autosuggestions plugin"
   git:
     repo: https://github.com/zsh-users/zsh-autosuggestions
     dest: "{{ omz_custom_dir }}/plugins/zsh-autosuggestions"
@@ -29,7 +31,7 @@
   become: true
   tags: omz
 
-- name: "[install]: Clone zsh-history-substring-search plugin"
+- name: "[omz]: Clone zsh-history-substring-search plugin"
   git:
     repo: https://github.com/zsh-users/zsh-history-substring-search
     dest: "{{ omz_custom_dir }}/plugins/zsh-history-substring-search"
@@ -38,7 +40,7 @@
   become: true
   tags: omz
 
-- name: "[install]: Clone zsh-syntax-highlighting plugin"
+- name: "[omz]: Clone zsh-syntax-highlighting plugin"
   git:
     repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
     dest: "{{ omz_custom_dir }}/plugins/zsh-syntax-highlighting"
@@ -48,7 +50,7 @@
   tags: omz
 
 # Post setup
-- name: "Set zsh as default shell"
+- name: "[omz]: Set zsh as default shell"
   user: name={{ ansible_user_id }} shell=/bin/zsh
   become: true
   tags: omz
