@@ -1,1 +1,7 @@
 ---
+- name: "[omz]: chmod omz dir"
+  file:
+    path: "{{ omz_install_path }}"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_gid }}"
+    recurse: true

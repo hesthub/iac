@@ -11,21 +11,14 @@
     update: true
     accept_hostkey: true
     version: "master"
-  register: "omz_clone"
-
-- name: "[omz]: Set ownership on newly cloned repository."
-  file:
-    path: "{{ omz_install_path }}"
-    owner: "{{ ansible_user_id }}"
-    group: "{{ ansible_user_gid }}"
-    recurse: true
-  when: "omz_clone is changed"
+  notify:
+    - "[omz]: chmod omz dir"
 
 # OMZ plugins
 - name: "[omz]: Clone zsh-autosuggestions plugin"
   git:
     repo: https://github.com/zsh-users/zsh-autosuggestions
-    dest: "{{ lookup('env', 'HOME') }}/.config/zsh/plugins/zsh-autosuggestions"
+    dest: "{{ config_dir }}/zsh/plugins/zsh-autosuggestions"
     version: master
     update: true
   become: true
@@ -34,7 +27,7 @@
 - name: "[omz]: Clone zsh-history-substring-search plugin"
   git:
     repo: https://github.com/zsh-users/zsh-history-substring-search
-    dest: "{{ lookup('env', 'HOME') }}/.config/zsh/plugins/zsh-history-substring-search"
+    dest: "{{ config_dir }}/.config/zsh/plugins/zsh-history-substring-search"
     version: master
     update: true
   become: true
@@ -43,7 +36,7 @@
 - name: "[omz]: Clone zsh-syntax-highlighting plugin"
   git:
     repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
-    dest: "{{ lookup('env', 'HOME') }}/.config/zsh/plugins/zsh-syntax-highlighting"
+    dest: "{{ config_dir }}/.config/zsh/plugins/zsh-syntax-highlighting"
     version: master
     update: true
   become: true
