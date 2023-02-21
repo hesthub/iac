@@ -1,5 +1,5 @@
 ---
 omz_git_repository: "https://github.com/robbyrussell/oh-my-zsh.git"
 omz_install_directory: ".oh-my-zsh"
-omz_custom_dir: $HOME/.config/zsh/
-config_dir: $HOME/.config/
+omz_custom_dir: "$HOME/.config/zsh/"
+config_dir: "$HOME/.config/"
