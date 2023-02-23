@@ -12,7 +12,7 @@
   ansible.builtin.lineinfile:
     dest: /private/etc/sudoers.d/yabai
     line: "{{ ansible_user_id }} ALL = (root) NOPASSWD: /usr/local/bin/yabai --load-sa"
-    validate: "usr/sbin/visudo -cf %s"
+    validate: "/usr/sbin/visudo -cf %s"
     create: yes
   become: true
   tags:
