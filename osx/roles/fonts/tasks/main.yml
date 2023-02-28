@@ -21,7 +21,7 @@
 - name: Mac Fonts | Download and unarchive repo
   ansible.builtin.unarchive:
     src: "{{ item.archive }}"
-    dest: "/tmp/fonts-{{ item.name }}"
+    dest: "/tmp/fonts-{{ item.0.name }}"
     remote_src: true
 
 # - name: Mac Fonts | Download repositories
