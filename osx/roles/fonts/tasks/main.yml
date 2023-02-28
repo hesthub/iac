@@ -11,11 +11,11 @@
           - FiraCode-Medium.ttf
           - FiraCode-Regular.ttf
           - FiraCode-Retina.ttf
-      # - name: Monoid
-      #   archive: https://github.com/jb-dmitry/monoid.git
-      #   directory: Monoisome
-      #   files:
-      #     - Monoisome-Regular.ttf
+      - name: Monoid
+        archive: https://github.com/JB-Dmitry/monoid/blob/master/Monoid-0.61-with-IntelliJ-support.zip
+        directory: Monoisome
+        files:
+          - Monoisome-Regular.ttf
   when: fonts is undefined
 
 - name: Mac Fonts | Download and unarchive repo
