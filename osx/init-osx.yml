@@ -8,3 +8,6 @@
 
     - role: yabai
       tags: ["yabai"]
+
+    - role: fonts
+      tags: ["fonts"]

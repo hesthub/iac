@@ -1,0 +1,41 @@
+---
+- name: Mac Fonts | Set fonts variable
+  set_fact:
+    fonts:
+      - name: FiraCode
+        archive: https://github.com/tonsky/firacode.git
+        directory: distr/ttf
+        files:
+          - FiraCode-Bold.ttf
+          - FiraCode-Light.ttf
+          - FiraCode-Medium.ttf
+          - FiraCode-Regular.ttf
+          - FiraCode-Retina.ttf
+      - name: Monoid
+        archive: https://github.com/jb-dmitry/monoid.git
+        directory: Monoisome
+        files:
+          - Monoisome-Regular.ttf
+  when: fonts is undefined
+
+- name: Mac Fonts | Download repositories
+  git:
+    repo: "{{ item.archive }}"
+    dest: "/tmp/fonts-{{ item.name }}"
+    version: "{{ item.version | default('master') }}"
+  with_items: "{{ fonts }}"
+
+- name: Mac Fonts | Install fonts from repositories
+  copy:
+    src: "/tmp/fonts-{{ item.0.name }}/{{ item.0.directory }}/{{ item.1 }}"
+    dest: "/Users/{{ fubarhouse_user }}/Library/Fonts/{{ item.1 }}"
+  with_subelements:
+    - "{{ fonts }}"
+    - "files"
+
+- name: Mac Fonts | Remove repositories
+  file:
+    path: "/tmp/fonts-{{ item.name }}"
+    state: absent
+  changed_when: false
+  with_items: "{{ fonts }}"

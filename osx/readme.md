@@ -2,16 +2,16 @@
 https://github.com/ricbra/dotfiles/blob/master/bin/setup_osx
 https://git.herrbischoff.com/awesome-macos-command-line/about/#developer
 
-2: install packages via Brew
-
-3: link dotfiles
-
 roles: 
-- dotfiles
-- homebrew
-- terminal
-- yabai
+- dotfiles /
+- homebrew /
+- yabai    /
+
+- terminal |
+- font https://github.com/fubarhouse/ansible-role-macfonts
+
 - jetbrains https://github.com/reimarstier/ansible-role-jetbrains_installer
+            https://github.com/alanquillin/ansible_install_jetbrains_apps
 - ssh https://github.com/sylvainmetayer/dotfiles/tree/main/roles
 - docker
 - macos (defaults)
