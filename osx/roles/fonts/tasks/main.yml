@@ -3,27 +3,33 @@
   set_fact:
     fonts:
       - name: FiraCode
-        archive: https://github.com/tonsky/firacode.git
-        directory: distr/ttf
+        archive: https://github.com/tonsky/FiraCode/releases/download/6.2/Fira_Code_v6.2.zip
+        directory: ttf
         files:
           - FiraCode-Bold.ttf
           - FiraCode-Light.ttf
           - FiraCode-Medium.ttf
           - FiraCode-Regular.ttf
           - FiraCode-Retina.ttf
-      - name: Monoid
-        archive: https://github.com/jb-dmitry/monoid.git
-        directory: Monoisome
-        files:
-          - Monoisome-Regular.ttf
+      # - name: Monoid
+      #   archive: https://github.com/jb-dmitry/monoid.git
+      #   directory: Monoisome
+      #   files:
+      #     - Monoisome-Regular.ttf
   when: fonts is undefined
 
-- name: Mac Fonts | Download repositories
-  git:
-    repo: "{{ item.archive }}"
+- name: Mac Fonts | Download and unarchive repo
+  ansible.builtin.unarchive:
+    src: "{{ item.archive }}"
     dest: "/tmp/fonts-{{ item.name }}"
-    version: "{{ item.version | default('master') }}"
-  with_items: "{{ fonts }}"
+    remote_src: true
+
+# - name: Mac Fonts | Download repositories
+#   git:
+#     repo: "{{ item.archive }}"
+#     dest: "/tmp/fonts-{{ item.name }}"
+#     version: "{{ item.version | default('master') }}"
+#   with_items: "{{ fonts }}"
 
 - name: Mac Fonts | Install fonts from repositories
   copy:
