@@ -23,6 +23,7 @@
     src: "{{ item.archive }}"
     dest: "/tmp/fonts-{{ item.0.name }}"
     remote_src: true
+  with_items: "{{ fonts }}"
 
 # - name: Mac Fonts | Download repositories
 #   git:
