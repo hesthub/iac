@@ -6,10 +6,9 @@ roles:
 - dotfiles /
 - homebrew /
 - yabai    /
-
+- font     /
 - terminal |
-- font https://github.com/fubarhouse/ansible-role-macfonts
-
+  
 - jetbrains https://github.com/reimarstier/ansible-role-jetbrains_installer
             https://github.com/alanquillin/ansible_install_jetbrains_apps
 - ssh https://github.com/sylvainmetayer/dotfiles/tree/main/roles
@@ -47,3 +46,16 @@ defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
 # Disable "natural" scroll
 defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
+
+
+Keyboard => Text => Correct spelling automatically => false
+Keyboard => Text => Capitalize words automatically => false
+Keyboard => Text => Add period with double space => false
+
+Disable Siri
+
+Disable Dock
+
+Disable hot corners
+
+finder - disable alot

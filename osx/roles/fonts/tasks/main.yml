@@ -1,5 +1,5 @@
 ---
-- name: Mac Fonts | Set fonts variable
+- name: "[Fonts]: Set fonts variable"
   set_fact:
     fonts:
       - name: FiraCode
@@ -12,37 +12,38 @@
           - FiraCode-Regular.ttf
           - FiraCode-Retina.ttf
       - name: Monoid
-        archive: https://github.com/JB-Dmitry/monoid/blob/master/Monoid-0.61-with-IntelliJ-support.zip
-        directory: Monoisome
+        archive: https://github.com/JB-Dmitry/monoid/blob/master/Monoid-0.61-with-IntelliJ-support.zip?raw=true
+        directory: ""
         files:
           - Monoisome-Regular.ttf
+          - Monoid-Retina.ttf
+          - Monoid-Bold.ttf
+          - Monoid-Italic.ttf
   when: fonts is undefined
 
-- name: Mac Fonts | Download and unarchive repo
-  ansible.builtin.unarchive:
+- name: "[Fonts]: Create a directory if it does not exist"
+  ansible.builtin.file:
+    path: "/tmp/fonts-{{ item.name }}"
+    state: directory
+    mode: "0755"
+  loop: "{{ fonts }}"
+
+- name: "[Fonts]: Download and Extract font files"
+  unarchive:
     src: "{{ item.archive }}"
-    dest: "/tmp/fonts-{{ item.0.name }}"
+    dest: "/tmp/fonts-{{ item.name }}"
     remote_src: true
-  with_items: "{{ fonts }}"
+  loop: "{{ fonts }}"
 
-# - name: Mac Fonts | Download repositories
-#   git:
-#     repo: "{{ item.archive }}"
-#     dest: "/tmp/fonts-{{ item.name }}"
-#     version: "{{ item.version | default('master') }}"
-#   with_items: "{{ fonts }}"
-
-- name: Mac Fonts | Install fonts from repositories
+- name: "[Fonts]: Install fonts from repositories"
   copy:
     src: "/tmp/fonts-{{ item.0.name }}/{{ item.0.directory }}/{{ item.1 }}"
     dest: "/Users/{{ ansible_user_id }}/Library/Fonts/{{ item.1 }}"
-  with_subelements:
-    - "{{ fonts }}"
-    - "files"
+  loop: "{{ fonts | subelements('files') }}"
 
-- name: Mac Fonts | Remove repositories
+- name: "[Fonts]: Remove repositories"
   file:
     path: "/tmp/fonts-{{ item.name }}"
     state: absent
   changed_when: false
-  with_items: "{{ fonts }}"
+  loop: "{{ fonts }}"

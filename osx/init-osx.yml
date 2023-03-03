@@ -3,11 +3,5 @@
   hosts: all
 
   roles:
-    - role: terminal
-      tags: ["terminal"]
-
-    - role: yabai
-      tags: ["yabai"]
-
     - role: fonts
       tags: ["fonts"]
