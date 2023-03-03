@@ -11,14 +11,16 @@ roles:
   
 - jetbrains https://github.com/reimarstier/ansible-role-jetbrains_installer
             https://github.com/alanquillin/ansible_install_jetbrains_apps
-- ssh https://github.com/sylvainmetayer/dotfiles/tree/main/roles
-- docker
 - macos (defaults)
-- vim/neovim
+- vscode (install common extensions to save time)
 
-more https://github.com/theNewFlesh/dev_roles
 https://github.com/ansible-macos/macos-playbook/tree/master/roles
 
+
+nothing to config
+- ssh
+- docker
+- 
 cant config? 
 - firefox ( login and sync )
 - vscode ( login and sync )
@@ -38,6 +40,7 @@ files to restore:
 apps: 
 telepresence
 
+https://pijul.org/
 
 defaults
 

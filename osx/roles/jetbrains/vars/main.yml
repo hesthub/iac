@@ -1,0 +1,22 @@
+---
+jetbrains_installer: "{{ 'linux.yml' if ansible_system == 'Linux' and jetbrains_install_linux|bool else 'osx.yml' if ansible_distribution == 'MacOSX' and jetbrains_install_osx|bool else None }}"
+jetbrains_product_name: "{{jetbrains_product}}{{ '' if jetbrains_download_pro_edition|bool or not jetbrains_multi_editions|bool else ' CE'}}"
+jetbrains_url_prefix: "https://data.services.jetbrains.com/products/download?code={{jetbrains_product_code_full}}&platform="
+jetbrains_product_code_full: "{{jetbrains_product_code}}{{ '' if not jetbrains_multi_editions|bool else jetbrains_professional_code_postfix if jetbrains_download_pro_edition|bool else 'C'}}"
+
+### OSX specific variables
+jetbrains_osx_product_url: "{{ jetbrains_url_prefix }}mac"
+jetbrains_osx_install_file_path: "/tmp/{{ jetbrains_product_name }}.dmg"
+jetbrains_osx_app_file_name: "{{ jetbrains_product_name }}.app"
+jetbrains_osx_volume: "/Volumes/{{ jetbrains_product_name }}"
+
+product_tags:
+  - jetbrains
+  - pycharm
+  - rubymine
+  - webstorm
+  - phpstorm
+  - clion
+  - datagrip
+  - appcode
+  - intellij
