@@ -5,18 +5,15 @@ Who doesn't like a nice, clean, workspace? Just like how a tidy physical desktop
 
 But the digital battle of keeping a minimalistic, tidy setup can be tiring, especially if you, like me, love to poke around and prod with new tools and apps on an almost daily basis. 
 
-To have as little as possible, but still all the tools you need for your day-to-day work. 
-but how to keep the inevitable bloat under control? 
+Are you haunted by the flood of temp-folders, config-files, and orphaned libraries, steadily rising for every new application you try out and uninstall? 
 
-Do you constantly hunt down temp-folders, config-files, and orphaned libraries for every new application you try out and uninstall? 
+A clean slate could solve this, given you remember which settings to update, what knobs to dial in and which unused features to turn off? but what if you dont?
 
-How about a fresh install once in a while, hoping to remember which settings to update, what knobs to dial in and which unused features to turn off? 
-
-The savior of our woes might be called Anisble.
+The savior of your woes might be called Anisble.
 
 ### What is Ansible
 
-Warning: Ansible is setup,written and configured using YAML, if this causes you alarm, please close your eyes until you've finished reading this post. Moving on.
+Warning: Ansible is setup, written and configured using YAML, if this causes you alarm, please close your eyes until you've finished reading this post. Moving on.
 
 The solution we are looking into today is Ansible, an IT automation tool.
 Written and maintained by Red Hat, its claim to fame is more focused on server provisioning and application deployment, but what is your local environment if not a smaller, more compact infrastructure?
