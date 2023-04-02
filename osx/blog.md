@@ -1,29 +1,46 @@
 # The ABCs of Ansible
 
 ## Intro
-Who doesn't like a nice, clean, workspace? Just like how a tidy physical desktop, free from old coffee cups, cable-nests, dishes and candy wrappers can make you feel more productive and focused, a clean and organized development environment can do the same.
+Who doesn't like a nice, clean, workspace? Just like how a tidy physical desktop, free from stacks of coffee cups, old dishes and candy wrappers can make you feel more productive and focused, a clean and organized development environment can do the same.
 
-But the digital battle of keeping a minimalistic, tidy setup can be tiring, especially if you, like me, love to poke around and prod with new tools and apps on an almost daily basis. 
+Do you find yourself battling the chaos of temporary folders, configuration files, and orphaned libraries that only seem to multiply with every new application you test and uninstall?
 
-Are you haunted by the flood of temp-folders, config-files, and orphaned libraries, steadily rising for every new application you try out and uninstall? 
+While maintaining a well-organized environment can help you stay in control, it's not always practical, or even possible to remain neat and orderly day-to-day; searching for, tidying up and trying to keep the bloat at bay. 
 
-A clean slate could solve this, given you remember which settings to update, what knobs to dial in and which unused features to turn off? but what if you dont?
+Then what can we do about it?
+Enter Anisble, the savior of our woes, offering a clean slate approach without forcing you to remeber which settings to update, what knobs to dial in and which unused features to turn off every time you reinstall your machine.
 
-The savior of your woes might be called Anisble.
 
 ### What is Ansible
+Caution: Ansible's setup, configuration, and scripting rely on YAML, if this causes you alarm, please close your eyes until you've finished reading this post.
 
-Warning: Ansible is setup, written and configured using YAML, if this causes you alarm, please close your eyes until you've finished reading this post. Moving on.
+The solution we are looking into today is Ansible, an IT automation tool written and maintained by Red Hat.
+Ansibles claim to fame might be more focused on server provisioning and application deployment, but what is your local environment if not a smaller, more compact infrastructure? And just like our ifrastructure, we want to raise cattle, not pets, meaning that idealy we want to be able to replicate our enviroment on any machine with the least amount of friction, without losing our settings, preferences, personal scripts and dotfiles.
 
-The solution we are looking into today is Ansible, an IT automation tool.
-Written and maintained by Red Hat, its claim to fame is more focused on server provisioning and application deployment, but what is your local environment if not a smaller, more compact infrastructure?
+To achive this, our objective is to create an automated, version controlled, idempotent configuration that will take us from a freshly installed machine to a ready-to-go development environment with the press of a button, or to be more precise: the execution of a script.
 
-Our goal is to create an automated, version controlled, idempotent configuration that will take us from a freshly installed OS X to a ready-to-go development environment. but we dont have to limit ourselves to a single machine, any machine you can SSH into can be managed this way, from a single controller node. 
+Lets dig in and take a look. We are taking a look at the building blocks of ansible. 
 
-Lets dig in and take a look.
+    Inventory: The inventory is a file or a collection of files that defines the hosts (servers, network devices, etc.) that Ansible manages.
 
-### Ansible concepts
-Playbooks are the main body of work within Ansible, a collection of all automated actions (tasks) and their configuration we want to perform. 
+    Playbooks: Playbooks are the heart of Ansible. They define the automation tasks, configurations, and orchestration to be performed on the inventory hosts.
+
+    Tasks: Tasks are the smallest unit of work in Ansible. They are a series of actions to be performed on the target hosts, using modules to provide functionalities.
+
+    Modules: Modules are the units of code that Ansible executes. with modules we perform our actions, such as installing packages, managing files, and configuring services. There are hundreds of built-in modules, and you can create custom ones as well.
+
+    Roles: Roles are a way to organize and reuse Ansible content. They encapsulate tasks, variables, templates, files, and handlers in a standardized structure, making it easier to share and reuse code across projects. 
+
+    Templates: Templates are text files that can contain dynamic content, using the Jinja2 templating engine. They allow you to generate configuration files based on variables, making it easy to create configuration based on host and other varibales.
+
+    Handlers: Handlers are special types of tasks that are triggered only when a specific event occurs, such as a change in the configuration of a service. They are commonly used to restart services when their configurations are updated.
+
+    Ansible Galaxy: a community-driven hub and repository for sharing Ansible collections and roles for other to reuse and extend.
+
+In this post we will be focusing on the core components of Ansible: inventory, playbooks, tasks and modules, saving the organizational-focused parts for a later time. 
+
+### Ansible in action
+Playbooks are the main body of work within Ansible, and together with the inventory comprises the core of our setup.
 
 to create a new playbook we simply need to create a yaml file with a descriptive name, with the following contents: 
 
@@ -39,11 +56,11 @@ to create a new playbook we simply need to create a yaml file with a descriptive
  	debug:
   	msg: Hello world
 ```
-This file describes a playbook with a single task: "print message", which uses an module builtin into Ansible, that will print out our message to the terminal.
+This file describes a playbook with a single task: "print message", which uses a builtin module, that will print out our message to the terminal.
 
 We have also specified an attribute
 > hosts:all 
-which tells anisble to execute our command on all machines (hosts) we have specified in the next file we create, namely
+which tells anisble to execute our command on all machines (hosts) we have specified in our inventory
 
 >inventory
 
@@ -51,10 +68,9 @@ which tells anisble to execute our command on all machines (hosts) we have speci
 localhost ansible_connection=local
 ```
 
-This inventory file manages the collection of hosts we want to apply, here we can group and organize our hosts, manage networking, users, groups, environment variables and more. 
-But since this will only cover a single setup for a local machine, lets keep it simple and just add our localhost and call it a day here.
+The inventory manages the collection of hosts we want to apply, and since we are focusing on just our local machine, this inventory will be kept quite simple.
 
-Once we have our hosts set, and task automated we can run this playbook with the following command: 
+Once we have our hosts set, playbook ready and task automated we can run this with the following command: 
 
 > ansible-playbook -i inventory init-osx.yml
  
@@ -93,54 +109,52 @@ first of we create a task folder and our first task inside it
 ---
 - name: Download chezmoi
   shell: 'sh -c "$(curl -fsLS get.chezmoi.io)" '
-  changed_when: false
 
 - name: Move to PATH
   command: "mv ./bin/chezmoi /usr/local/bin/chezmoi"
-  changed_when: false
 
 - name: Initialize dotfiles repo
   command: "chezmoi init --apply {{ github_name }}"
-  changed_when: false
 
 ```
+
 
 This task is used to download a dotfile manager called [chezmoi](https://www.chezmoi.io/)
 we then move it to path in order to use its CLI to initialize our system from a github repo containing dotfiles. 
 
-TODO CHANGE WHEN!
+this is done in three steps, and as we can see using two diffrent builtin modules: shell and command. 
 
-TODO BECOME FALSE? 
+Both are simillar, used to execute commands on the host, command being the prefered, safer option, but shell having the added benefit of actually execution via a shell, and therefore being able to access enviroment variables, process operations like "|", "&", ">", "<" and more.
 
-here we also have our first usage of variables in Anisble, instead of hardcoding the github repo we want to init from, we can make our module infer that value from an external source. 
+Here we also have our first usage of variables in Anisble, instead of hardcoding the github repo we want to init from, we can make our module infer that value from an external source. 
 
 Basic variables such as the string we are using here are denoted by a variable name surrounded by 2 sets of braces like so :
 
-> {{ variable }}
+> {{ variable-name }}
 
-But where do we get our variable-values from? 
+But where do we get our variables value from? 
 
-in a simple case such as this, we can simple create a file containing our default-values in the root of our playbook.
+in a simple, gathered up case such as this, we can create a file containing our default-values in the root of our playbook.
 
 >default.config.yml
 
-```
+```yaml
 ---
 github_name: your-github-username
 
 ```
 now this value will be available for all of our tasks in this playbook, and unless overwritten, will be used in place of the variable.
 
-lets add one more task and look at some other ways of working with variables
+lets add one more task and look at some other ways of working with variables. 
 
-create a file as follows: 
+Create a new task file with the following content: 
 
 >fonts.yml
 
-```
+```yaml
 ---
 - name: "[Fonts]: Check if fonts are already installed"
-  command: ls /Users/{{ ansible_user_id }}/Library/Fonts/
+  command: ls {{ ansible_user_dir }}/Library/Fonts/
   register: current_fonts
 
 - name: "[Fonts]: Set fonts variable"
@@ -184,7 +198,7 @@ create a file as follows:
 - name: "[Fonts]: Install fonts from repositories"
   copy:
     src: "/tmp/fonts-{{ item.0.name }}/{{ item.0.directory }}/{{ item.1 }}"
-    dest: "/Users/{{ ansible_user_id }}/Library/Fonts/{{ item.1 }}"
+    dest: "{{ ansible_user_dir }}/Library/Fonts/{{ item.1 }}"
   loop: "{{ fonts | subelements('files') }}"
   when: current_fonts == ""
 
@@ -198,31 +212,41 @@ create a file as follows:
 
 ```
 
-The first thing to note is the use of a built-in variable called {{ ansible_user_id }}
-Available by default and doesn't need to be manually initialized, it points to the current user performing the operation. 
-Since we are only running this on our local machine, this is the our own user and can be freely used. 
+The first thing to note is the use of a built-in variable called {{ ansible_user_dir }}.
+This variable is set by Ansible during the gathering_facts phase, and globally available inside the playbook. 
+If you are intresested in what other facts Ansible has gathered about the system, we can create a small task to print them all with this: 
 
-An ls commands is issued inside our fonts folder, and the result registered inside a local variable, this can then be used to keep the setup idempotent. 
+```yaml
+  tasks:
+    - name: Print all available facts
+      ansible.builtin.debug:
+        var: ansible_facts
 
-This current_fonts variable is checked for each of our modules using the "when" conditional statement. 
-If false, meaning we already have font files in this folder, we skip the execution and move on too the next module in our task.
+```
+
+Using the builtin variable to reach our home folder, an ls commands is issued inside our Librabries fonts folder, and the result registered inside a local variable (current_fonts).
+
+The current_fonts variable is then checked for each of our modules using the "when" conditional statement, and is one of the ways we can keep our configuration idempotent.
+
+"When" is used to determine if a specifc module should run or not, for instance, no need to download a new set of fonts if they are already installed. 
 
 If applicable (no values set before), we move on and generate our own facts.
-the facts we set using the "set_facts" module is a font object containing a list of 2 items. 
-These items have a couple of attributes: 
+the facts we set using the "set_facts" module is an object containing a list of 2 items. 
+These items in term have a couple of attributes: 
 - a name
 - an archive/uri
 - a directory name
 - a list of ttf font files
 
-Using a "loop" module, we iterate over our font objects, creating a temporary folder and downloading and unarchiving the fonts into seperate folders. 
+In order to iterate through our obects we make use of the builtin "loop" module, which will treverse over the top layer objects, and return a variable called item that contains the result of our loops, so in order to get the name of our font objects we simply call 
+> {{ item.0.name }}
 
-once downloade we use a new, nested loop to iterate over our files attribute inside each font item.
+ then we use a second, nested loop to iterate over our files attribute inside each font item.
 
 creating a nested loops looks like: 
 >{{ fonts | subelements('files') }} 
 
-and once we have seperated our data into an outer and inner loop we access our variables.
+and once we have seperated our data into an outer and inner loop we access our variables in the following way.
 
 To get a hold of our variable name in fonts.[1..n].name
 
@@ -251,8 +275,8 @@ Then execute it, same as before
 
 And with that we have a simple ansible playbook to automaticly fetch and initilaze our dotfiles from github, and install a set of nice fonts we can use. 
 
-Before we end, lets take a quick look at some config we can apply to customize our automation experience. 
-First of is ansible linting, which can be handled via an .ansible-lint file
+Before we end, lets take a quick look at some config we can apply to customize our Ansible experience. 
+First of is linting, which can be handled via an .ansible-lint file
 
 >.ansible-lint
 
@@ -263,13 +287,20 @@ skip_list:
   - fqcn-builtins
 ```
 A list of rule we dont want the linter to warn about.
+here we are removing warnings about using "fully qualified collection name", so instead of writing "ansible.builtin.command" we can simply write "command"
 
 For more extensive configuration, there is the option to generate an inactive config file using the following command: 
 
 >ansible-config init --disabled > ansible.cfg
 
 this file can then be used as a starting point for any configuration you could want for the playbook.
-
+We have the option to set configuration such as if and how you want Ansible to gather facts about the host, output format, timeouts how to deal with errors and much more. 
 
 ## the end
-conclusion and cliffhanger for part 2 ( roles, requirements,plugins and galaxy )`
+And with that, we now have a solid starting point for automating our local environment!
+
+Today we've merely scratched the surface, exploring the building blocks and executing basic playbooks. 
+
+In our upcoming post, we'll will use the new knowledge we have gained and delve deeper into the power of roles for creating self-contained sets of tasks, complete with isolated configurations and rulesets. 
+
+We'll also investigate Ansible templates to generate our config files based on host variables and other conditions, as well as tapping into the Ansible community to reuse existing roles and collections, eliminating the need to reinvent the wheel for common, already solved tasks.

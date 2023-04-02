@@ -10,4 +10,4 @@
       tags: ["dotfiles"]
     - name: Fonts
       import_tasks: tasks/fonts.yml
-      tags: ["dotfiles"]
+      tags: ["Fonts"]
