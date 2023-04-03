@@ -1,41 +1,45 @@
 # The ABCs of Ansible
 
 ## Intro
-Who doesn't like a nice, clean, workspace? Just like how a tidy physical desktop, free from stacks of coffee cups, old dishes and candy wrappers can make you feel more productive and focused, a clean and organized development environment can do the same.
+Who doesn't like a nice, clean, workspace? Just like how a tidy physical desktop, free from stacks of coffee cups, old dishes and candy wrappers can make you feel more productive and focused, a clean and organized development environment can do the same for your digital self.
 
-Do you find yourself battling the chaos of temporary folders, configuration files, and orphaned libraries that only seem to multiply with every new application you test and uninstall?
+Do you instead of bliss, find yourself battling the chaos of temporary folders, configuration files, and orphaned libraries that only seem to multiply with every new application you test and uninstall?
 
 While maintaining a well-organized environment can help you stay in control, it's not always practical, or even possible to remain neat and orderly day-to-day; searching for, tidying up and trying to keep the bloat at bay. 
 
 Then what can we do about it?
-Enter Anisble, the savior of our woes, offering a clean slate approach without forcing you to remeber which settings to update, what knobs to dial in and which unused features to turn off every time you reinstall your machine.
+Enter Anisble, the savior of our woes, offering a clean slate approach, lettings you start fresh, but without forcing you to remeber which settings to update, what knobs to dial in and which unused features to turn off every time you reinstall your machine.
 
 
 ### What is Ansible
 Caution: Ansible's setup, configuration, and scripting rely on YAML, if this causes you alarm, please close your eyes until you've finished reading this post.
 
 The solution we are looking into today is Ansible, an IT automation tool written and maintained by Red Hat.
-Ansibles claim to fame might be more focused on server provisioning and application deployment, but what is your local environment if not a smaller, more compact infrastructure? And just like our ifrastructure, we want to raise cattle, not pets, meaning that idealy we want to be able to replicate our enviroment on any machine with the least amount of friction, without losing our settings, preferences, personal scripts and dotfiles.
+Ansibles claim to fame might be more focused on server provisioning and application deployment, but what is your local environment if not a smaller, more compact infrastructure? 
+And just like our infrastructure, we want to raise cattle, not pets. 
+Meaning that idealy we want to be able to replicate our enviroment on any machine with the least amount of friction, not unlike how we containerize our applications.
+
+And like containers, we want to be able to package, version and redeploy our enviroment between machines, consolidate our work and not have it tied up with the host itself.
 
 To achive this, our objective is to create an automated, version controlled, idempotent configuration that will take us from a freshly installed machine to a ready-to-go development environment with the press of a button, or to be more precise: the execution of a script.
 
-Lets dig in and take a look. We are taking a look at the building blocks of ansible. 
+Lets start by exploring the building blocks of Ansible:
 
-    Inventory: The inventory is a file or a collection of files that defines the hosts (servers, network devices, etc.) that Ansible manages.
+-  **Inventory**: The inventory is a file or a collection of files that defines the hosts (servers, network devices, etc.) that Ansible manages.
 
-    Playbooks: Playbooks are the heart of Ansible. They define the automation tasks, configurations, and orchestration to be performed on the inventory hosts.
+-  **Playbooks**: Playbooks are the heart of Ansible. They define the automation tasks, configurations, and orchestration to be performed on the inventory hosts.
 
-    Tasks: Tasks are the smallest unit of work in Ansible. They are a series of actions to be performed on the target hosts, using modules to provide functionalities.
+-  **Tasks**: Tasks are the smallest unit of work in Ansible. They are a series of actions to be performed on the target hosts, using modules to provide functionalities.
 
-    Modules: Modules are the units of code that Ansible executes. with modules we perform our actions, such as installing packages, managing files, and configuring services. There are hundreds of built-in modules, and you can create custom ones as well.
+-  **Modules**: Modules are the units of code that Ansible executes. with modules we perform our actions, such as installing packages, managing files, and configuring services. There are hundreds of built-in modules, and you can create custom ones as well.
 
-    Roles: Roles are a way to organize and reuse Ansible content. They encapsulate tasks, variables, templates, files, and handlers in a standardized structure, making it easier to share and reuse code across projects. 
+-  **Roles**: Roles are a way to organize and reuse Ansible content. They encapsulate tasks, variables, templates, files, and handlers in a standardized structure, making it easier to share and reuse code across projects. 
 
-    Templates: Templates are text files that can contain dynamic content, using the Jinja2 templating engine. They allow you to generate configuration files based on variables, making it easy to create configuration based on host and other varibales.
+-  **Templates**: Templates are text files that can contain dynamic content, using the Jinja2 templating engine. They allow you to generate configuration files based on variables, making it easy to create configuration based on host and other varibales.
 
-    Handlers: Handlers are special types of tasks that are triggered only when a specific event occurs, such as a change in the configuration of a service. They are commonly used to restart services when their configurations are updated.
+-  **Handlers**: Handlers are special types of tasks that are triggered only when a specific event occurs, such as a change in the configuration of a service. They are commonly used to restart services when their configurations are updated.
 
-    Ansible Galaxy: a community-driven hub and repository for sharing Ansible collections and roles for other to reuse and extend.
+-  **Ansible Galaxy**: a community-driven hub and repository for sharing Ansible collections and roles for other to reuse and extend.
 
 In this post we will be focusing on the core components of Ansible: inventory, playbooks, tasks and modules, saving the organizational-focused parts for a later time. 
 
