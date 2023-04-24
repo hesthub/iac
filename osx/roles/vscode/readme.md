@@ -1,7 +1,4 @@
-# yabai
+# vs code
 
-validate that yabai is installed
-
-setup yabai services
-
-validate config in place
+verify vs code is installed
+download base extensions

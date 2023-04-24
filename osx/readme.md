@@ -50,23 +50,13 @@ telepresence
 
 https://pijul.org/
 
-defaults
-
-# Show filename extensions by default
-defaults write NSGlobalDomain AppleShowAllExtensions -bool true
-
-# Disable "natural" scroll
-defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
 
 
-Keyboard => Text => Correct spelling automatically => false
-Keyboard => Text => Capitalize words automatically => false
-Keyboard => Text => Add period with double space => false
+# Firefox
 
-Disable Siri
+validates that firefox is install
+generate profile and install extensions
 
-Disable Dock
+https://github.com/unrblt/ansible-role-firefox
 
-Disable hot corners
-
-finder - disable alot
+https://support.mozilla.org/en-US/kb/profiles-where-firefox-stores-user-data#w_finding-your-profile-without-opening-firefox

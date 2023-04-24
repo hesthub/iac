@@ -1,7 +1,20 @@
-# yabai
+# defaults
 
-validate that yabai is installed
+# Show filename extensions by default
+defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
-setup yabai services
+# Disable "natural" scroll
+defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
 
-validate config in place
+
+Keyboard => Text => Correct spelling automatically => false
+Keyboard => Text => Capitalize words automatically => false
+Keyboard => Text => Add period with double space => false
+
+Disable Siri
+
+Disable Dock
+
+Disable hot corners
+
+finder - disable alot

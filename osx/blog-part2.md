@@ -27,6 +27,7 @@ roles/
         lookup_plugins/   # or other types of plugins, like lookup in this case
 
 ### the tasks
+    yabai
     https://github.com/ctorgalson/ansible-role-macos-hostname
     https://github.com/markosamuli/ansible-asdf/tree/master/tasks
 
