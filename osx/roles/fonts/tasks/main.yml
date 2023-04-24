@@ -1,4 +1,8 @@
 ---
+- name: "Check if fonts are already installed"
+  command: ls /Users/{{ ansible_user_id }}/Library/Fonts/
+  register: current_fonts
+
 - name: "[Fonts]: Set fonts variable"
   set_fact:
     fonts:
@@ -27,6 +31,7 @@
     state: directory
     mode: "0755"
   loop: "{{ fonts }}"
+  when: current_fonts == ""
 
 - name: "[Fonts]: Download and Extract font files"
   unarchive:
@@ -34,12 +39,14 @@
     dest: "/tmp/fonts-{{ item.name }}"
     remote_src: true
   loop: "{{ fonts }}"
+  when: current_fonts == ""
 
 - name: "[Fonts]: Install fonts from repositories"
   copy:
     src: "/tmp/fonts-{{ item.0.name }}/{{ item.0.directory }}/{{ item.1 }}"
     dest: "/Users/{{ ansible_user_id }}/Library/Fonts/{{ item.1 }}"
   loop: "{{ fonts | subelements('files') }}"
+  when: current_fonts == ""
 
 - name: "[Fonts]: Remove repositories"
   file:
@@ -47,3 +54,4 @@
     state: absent
   changed_when: false
   loop: "{{ fonts }}"
+  when: current_fonts == ""

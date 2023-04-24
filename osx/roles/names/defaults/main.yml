@@ -1,0 +1,6 @@
+---
+# defaults file for ansible-role-macos-hostname
+
+mh_hostname: ""
+mh_localhostname: "MhLocalHostName"
+mh_computername: "MhComputerName"

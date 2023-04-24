@@ -8,7 +8,15 @@ roles:
 - yabai    /
 - font     /
 - terminal |
-  
+
+
+ https://github.com/ublue-os/fleek
+ https://www.redhat.com/sysadmin/developing-ansible-role
+ https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_reuse_roles.html#role-directory-structure
+ https://docs.ansible.com/ansible/2.8/user_guide/playbooks_best_practices.html
+
+ https://github.com/markosamuli/ansible-asdf/tree/master/tasks
+
 - jetbrains https://github.com/reimarstier/ansible-role-jetbrains_installer
             https://github.com/alanquillin/ansible_install_jetbrains_apps
 - macos (defaults)
