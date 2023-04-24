@@ -1,0 +1,15 @@
+---
+- name: "[yabai]: verify skhd is installed"
+  community.general.homebrew:
+    name: skhd
+    state: present
+  register: skhd_installed
+  until: skhd_installed is succeeded
+  tags:
+    - yabai
+
+- name: "[yabai]: start brew service skhd"
+  command: brew services start skhd
+  changed_when: false
+  tags:
+    - yabai

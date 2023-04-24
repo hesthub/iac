@@ -1,0 +1,25 @@
+---
+- name: "[yabai]: verify yabai is installed"
+  community.general.homebrew:
+    name: yabai
+    state: present
+  register: yabai_installed
+  until: yabai_installed is succeeded
+  tags:
+    - yabai
+
+- name: "[yabai]: configure scripting addition"
+  ansible.builtin.lineinfile:
+    dest: /private/etc/sudoers.d/yabai
+    line: "{{ ansible_user_id }} ALL = (root) NOPASSWD: /usr/local/bin/yabai --load-sa"
+    validate: "/usr/sbin/visudo -cf %s"
+    create: true
+  become: true
+  tags:
+    - yabai
+
+- name: "[yabai]: start brew service yabai"
+  command: brew services start yabai
+  changed_when: false
+  tags:
+    - yabai
