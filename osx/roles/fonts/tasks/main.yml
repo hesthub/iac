@@ -2,6 +2,7 @@
 - name: "Check if fonts are already installed"
   command: ls /Users/{{ ansible_user_id }}/Library/Fonts/
   register: current_fonts
+  when: false
 
 - name: "[Fonts]: Set fonts variable"
   set_fact:

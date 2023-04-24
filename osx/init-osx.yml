@@ -5,3 +5,5 @@
   roles:
     - role: fonts
       tags: ["fonts"]
+    - role: names
+      tags: ["fonts"]
