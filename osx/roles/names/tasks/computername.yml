@@ -14,4 +14,4 @@
   when:
     - "mh_computername != mh_current_computername.stdout"
   become: true
-  notify: clear dns cache
+  notify: Clear dns cache

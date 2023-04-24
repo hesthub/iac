@@ -20,4 +20,4 @@
       mh_current_hostname.stdout is defined
       and mh_current_hostname.stdout != mh_hostname
     )
-  notify: clear dns cache
+  notify: Clear dns cache

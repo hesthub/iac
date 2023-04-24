@@ -14,4 +14,4 @@
   when:
     - "mh_localhostname != mh_current_localhostname.stdout"
   become: true
-  notify: clear dns cache
+  notify: Clear dns cache
