@@ -1,6 +1,6 @@
 This post is part 2 of dipping our toe into ocean of Ansible. 
 Today we will dive deeper into how we can orginaze our task using roles; 
-How are roles structured, how can we use them and how can we share our roles with other Ansible users. 
+How are roles structured, how can we use them and how can we can customize our tools.
 
 ### The strucuture of a role
 
@@ -20,12 +20,12 @@ roles/
         defaults/         #
             main.yml      #  <-- default lower priority variables for this role
         meta/             #
-            main.yml      #  <-- role dependencies
+            main.yml      #  <-- role dependencies (left for part 3)
 
         library/          # roles can also include custom modules
         lookup_plugins/   # or other types of plugins, like lookup in this case
 
-### the tasks
+### the tasks 
 
 Lets begin with what we already know: tasks. 
 
@@ -133,21 +133,25 @@ Once the role is in place and ready to go, we can include it in our play by modi
 
 ### the vars and the defaults
 
-With the task setup, lets take a look at how we can handle variables in a role. 
+With the task setup, lets take a look at how we can handle variables in a role.
+
+in part 1 (LINK) we stored all of our variables inside a global file called config-defaults.yml
+
 Here we have two options, "defaults" and "vars" 
 
-Both sets of variables are accessable in the same way, with some differences in precendence and ease to overwrite, with vars being the more rigid and the one that takes precedence. 
+Both are sets of variables that accessable in the same way inside our role, with diffrences showing up in how precendences are handled and ease to overwrite, with vars being the more rigid and the one that takes precedence. 
 
 for more in depth look at how ansible handles its many forms of variables, feel free to read through the official documentation: 
 
 https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_variables.html
 
-but for this case we are using the diffrent sets more akin to "vars" acting more like constants related to the role, and defaults as the more dynamic, case by case variables we overwrite on demand. 
+But for this case we are using the diffrent sets more akin to "vars" acting more like constants related to the role, and defaults as the more dynamic, case by case variables we overwrite on demand. 
 
+As an example, we are looking at a role that handles the installation and configuration of homebrew (Link) a popular package-manager for macos; and in it we will be using both defautls and vars.
 
-for this role we have setup both defaults and vars.
+In our more "static" variables, found in the vars folder, we have set the excpected homebrew folder structure and a url to homebrews github repository, which probably wont change anytime soon. 
 
-in our more "static" variables we have set the excpected homebrew folder structure and a url to homebrews github repository, which probably wont change anytime soon. 
+And in our defaults folder we can find values for our install path of homebrew, any path prefixes we want to use, and a flag giving us the option of clearing the cache once we are done or not. 
 
 > roles/homebrew/vars/main.yml
 
@@ -173,8 +177,6 @@ homebrew_folders_base:
   - var
 ```
 
-In our defaults we set some usable prefixes, desired paths and conditional flags.
-These variables are a prime candidate to override dependeing if you are running OSX on an Intel or Arm machine.
 
 > roles/homebrew/defaults/main.yml
 
@@ -190,14 +192,9 @@ homebrew_clear_cache: true
 
 ```
 
-Whichever we found our variables, we can access them the same way as we saw in the last post, which we can see in our homebrew task here. 
+Whereever we find our variables, we can access them the same way as we saw in the last post, which we can see in our homebrew task here. 
 
 Besides variables, we can also see a couple of new features in this task.
-
-Firstly we can see heavy use the built-in module file https://docs.ansible.com/ansible/latest/collections/ansible/builtin/file_module.html
-
-we also see the use of an ansible plugin called "become" https://docs.ansible.com/ansible/latest/plugins/become.html
-which works to ensure that Ansible can use privilege escalation when running commands. 
 
 > roles/homebrew/tasks/main.yml
 
@@ -310,15 +307,16 @@ which works to ensure that Ansible can use privilege escalation when running com
 
    ``` 
 
-### the handlers
+Firstly we can see heavy use the built-in module file https://docs.ansible.com/ansible/latest/collections/ansible/builtin/file_module.html which helps us handling file creation, copying access rights and deletion.
 
-Next up we take a look at handlers, which are tasks that are only executed when notified by another task. 
+We also see the use of an ansible plugin called "become"https://docs.ansible.com/ansible/latest/plugins/become.html which works to ensure that Ansible can use privilege escalation when running commands.
+
+### the handlers 
+
+Next up we take a look at handlers, which are a subset of tasks that are only executed when notified by another task. 
 Handlers are a often used to restart an updated service, or reload configuration after a task has made changes to the system. 
 
-Lets say we have a role that sets our hostName,localHostName and ComputerName. 
-
-one of the tasks might look something like this: 
-
+Lets say we have a role that sets our hostName,localHostName and ComputerName; One of the tasks might look something like this: 
 
 > roles/names/localhostname.yml
 
@@ -341,9 +339,11 @@ one of the tasks might look something like this:
 
 here we fetch the current value, register it to a temporary variable and compares it to our mh_localhostname variable found in a defautls folder. 
 
-if these values differ, we use the command module and set our LocalHostName, and if everything goes according to plan, we use the "notify" keyword to call a task named "Clean dns cache".
+if these values differ, we sudo up and use the command module to set our LocalHostName, and if everything goes according to plan, we use the "notify" keyword to call a task named "Clean dns cache".
 
-This will call the handler we have setup in our role structure: 
+Now lets create a handler that will listen to this notification. 
+
+Create a folder inside our new role called handlers, and a new yaml file inside that:
 
 > roles/names/handlers/main.yml
 
@@ -354,7 +354,7 @@ This will call the handler we have setup in our role structure:
 
 ```
 
-So when we successfully set our new localHostName, we trigger a dns cache flush, making sure we dont run into any strange behaviours with old cached names. 
+So now when we set our new localHostName, a dns cache flush will be triggerd, making sure we dont run into any strange behaviours with old cached names. Great, now we can be sure our machine will show up with our new name on our network.
 
 Using handlers created a flow that ensures that dependent tasks are executed only when necessary, and only once all pre-requisitets are completed, making our playbooks more efficent and reliable. 
 
@@ -362,40 +362,39 @@ We can also reuse the same handlers for mutiple tasks, allowing for a more DRY a
 
 ### the files and the templates
 
-In Ansible, files are manged using the "copy" and "template" modules. for simple files that doesn't need any host-dependant data, we use copy to simply copy our files onto our system. 
+Now we have our tasks, their handler and our variables setup, lets add some files into the mix.
 
-The "template" on the other hand, lets us create a new file based on a existing template, which can contain variables, loops, conditional logic and more.  
+In Ansible, files are mainly manged using the modules "copy" and "template". for simple files that doesn't need any host-dependant data, we can move the files as is using the "copy" module.
 
-This file is written in an templating engine called jinja2 https://github.com/pallets/jinja/
+But when it comes to dynamic files, here is where the "template" module shines.
 
-for example, we might want to template our zsh config file, instead of copying it from a repository. this might look something like this: 
+This module lets us create a new file based on a existing template, which can contain variables, loops, conditional logic and more.
+So we can use this to apply dynamic configuration to our setup, so if we start to run into more complex infrastrucutre, or if we are using a base setup for multiple machines, templating the config is a great way to reuse basic config and sprinkle customizations on top, and allows for a seperation of concern regarding config logic and config data.
+
+These templates are written in an templating engine for Python called jinja2 https://github.com/pallets/jinja/
+
+
+Lets look at a quick example of how a template might look, take a zshrc file for instance and lets template it.
 
 > roles/terminal/templates/zsh.j2
 
 
 ``` bash
 
-# .zshrc template
-# This file is generated by Ansible, do not modify manually.
-
-# Set the PATH variable
 export PATH="$HOME/bin:$PATH"
 
-# Set the default editor
 export EDITOR="vim"
 
-# Aliases
 alias ls='ls --color=auto'
 alias ll='ls -lah'
 alias grep='grep --color=auto'
 
-# Functions
 function ssh-agent-start {
   eval $(ssh-agent -s)
   ssh-add
 }
 
-# Load any additional scripts
+# Load any additional scripts using jinja
 {% if additional_scripts %}
 {% for script in additional_scripts %}
 source {{ script }}
@@ -405,10 +404,12 @@ source {{ script }}
 
 ```
 
-Here we have some base, common configuration for our zsh setup, we setup our path, default editor and a couple of aliases and scripts, but then we are using our template language to inject additional script, based on our ansible configuration. 
+Here we have some basic, common, configuration for our zsh setup, we add our path, default editor and a couple of aliases and scripts, but then we are using our template language to inject additional script, based on our ansible configuration. 
 
-Maybe we have one set of script we want to use when setting up a envrionment for backend development, and a seperate one for frontend work, maybe linux and macOS share the same base configuration, and we apply the diffrance using templates. 
+Maybe we have one set of script we use for backend development, and a seperate set for frontend work, maybe linux and macOS share the same base configuration, and we apply the diffrence using templates. 
 
+
+Once our template file is in place, we can generate our file using the template module inside a task
 
 > roles/terminal/tasks/main.yml
 
@@ -424,71 +425,30 @@ Maybe we have one set of script we want to use when setting up a envrionment for
 
 ``` 
 
-Templating this file will generate a new .zshrc file and insert our scripts into it based on our configuration and would look something like this: 
+executing this task will generate a .zshrc file and insert our scripts into it based on our input variables.
 
 ``` bash
 
-# .zshrc template
-# This file is generated by Ansible, do not modify manually.
-
-# Set the PATH variable
 export PATH="$HOME/bin:$PATH"
 
-# Set the default editor
 export EDITOR="vim"
 
-# Aliases
 alias ls='ls --color=auto'
 alias ll='ls -lah'
 alias grep='grep --color=auto'
 
-# Functions
 function ssh-agent-start {
   eval $(ssh-agent -s)
   ssh-add
 }
 
-# Set the PATH variabl# Load any additional scripts
+# Load any additional scripts using jinja
 source /Users/my-user/scripts/macos/script1.sh
 source /Users/my-user/scripts/macos/script2.sh
 
 ```
 
-
-### the meta
-the meta of our role contains, unsuprisingly, meta-data about or role. 
-
-Here we can declare information such as:
-
-- author
-- role description
-- license
-- supported platforms
-- other roles used as dependecies to our role
-- versioning information for both our role, platforms and depenencies
-
-``` yaml
----
-galaxy_info:
-  role_name: init OSX
-  author: Henrik Starefors
-  description: bootstrap OSX 
-  license: MIT
-  min_ansible_version: 2.6
-  platforms:
-    - name: MacOSX
-      versions:
-        - '10.13'
-        - '10.14'
-  galaxy_tags:
-    - Development
-    - System
-    - MacOSX
-dependencies: []
-
-```
-
-the meta data of our role is used to describe our role and its interaction with other roles when we share our role with other through the hub called Ansible Galaxy, which we will look into more in just a bit. 
+Here we see that the templating code is replaced with paths to our desired scripts, just as we asked for. 
 
 ### the custom
 
@@ -498,12 +458,12 @@ With a little bit of Python, some documentaiton, and an editor we are able to cr
 
 We won't be digging to far into custom development for Ansible, but more information can be found in the official documentation: 
 
-
 modules https://docs.ansible.com/ansible/latest/dev_guide/developing_modules_general.html#creating-a-module
 
 With modules we can write small script that Ansible can interact with through its API. 
 
-An example would be to create a new Ansible module to interact with the dotfile manager chezmoi https://www.chezmoi.io/ we use to download and apply dotfiles to our system, so instead of executing a hardcoded command, we could have a more flexible and direct approach if we develop an interface between Ansible and chezmoi.
+An example would be to create a new Ansible module to interact with the dotfile manager chezmoi https://www.chezmoi.io/.
+Chezmoi is used to download and apply dotfiles to our system, so instead of executing a hardcoded command via the shell or command modules, we could have a more flexible and direct approach if we develop an interface between Ansible and chezmoi.
 
 Plugins https://docs.ansible.com/ansible/latest/dev_guide/developing_plugins.html#developing-particular-plugin-types
 
@@ -512,7 +472,7 @@ Plugins on the other hand lets us extend and add features to Ansibles toolkit.
 We have already seen a couple of examples such as the "become" plugin that lets us temprarely take on a more privilages system role, but there is a sleugh of diffrent plugins we can leverage to handle things like filtering, callbacks, caching, inventory handling and much more. 
 
 
-### Using roles, static import
+### Using roles, static import TODO
 
 Now we have our roles, they are structured with tasks, variables, handlers, files and templates, maybe even some custom plugins under the hood. Lets take a look at how we can use them in our playbooks. 
 
@@ -674,65 +634,9 @@ or we can include our roles based on provided variables:
     ...
 ```
 
-
-### sharing roles
-
-One last thing before we wrap things up: sharing our Ansible creations. 
-
-https://galaxy.ansible.com/
-
-Ansible Galaxy is a central repository and  hub for community-developed roles.
-It allows us to download, share and package roles that has been created, tested and verfied by other Ansible users.
-
-Anyone can publish to Galaxy, sharing their work and spreading knowledge with the community.
-
-Galaxy lets us discover roles and include them in our own playbook, no need to re-invent the wheel for common tasks and automations. 
-
-But its not only roles we can find in the hub, here we can also find collections. 
-Ansible collections are turn-key packages that can contain roles, modules, plugins, files and entire playbooks, and provides a strucuted way of distributing Ansible content.
-
-So say we search the hub and find a role we would like to use for example "elliotweiser.osx-command-line-tools".
-https://galaxy.ansible.com/elliotweiser/osx-command-line-tools
-
-Now we can manually download it using the galaxy-client: 
-
-
-> ansible-galaxy install elliotweiser.osx-command-line-tools
-
-
-or use it as a dependcy to our playbook using a Ansible requirements file 
-
-
-> requirements.yml
-
-
-``` yaml
----
-roles:
-  - name: elliotweiser.osx-command-line-tools
-
-```
-
-this will tell Ansible to download and install this role from Galaxy as part of our playbook. 
-once in place, we can use the role as it where our own: 
-
-
-``` yaml
----
-- name: Bootstrap OSX dev machine
-  hosts: all
-
-  roles:
-    - role: elliotweiser.osx-command-line-tools
-    - role: names
-    - role: dotfiles
-    ...
-```
-
-
 ## conclusion
 
 And that wraps up part two of this Ansible series. 
-With a bit more role-knowledge under our belt we can now start building our roles, automate multiple machines from the same playbook, and share our findings with the world through Ansible Galaxy. 
+With a bit more role-knowledge under our belt we can now start strucutring our playbook with roles, automate multiple machines from the same playbook, and we are ready to dive into part 3 of this series: Ansible Galaxy and sharing of Ansible content.
 
-In the third and final part of this series we will bring it all together and bootstrap a machine from fresh install into a working, ready to go development enviroment, just the way we like it. 
+We will be finializing our bootstrap playbook, creating a collection out of it and looking into the hub of Ansible content called Galaxy. Stay tuned. 
