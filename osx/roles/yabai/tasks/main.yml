@@ -1,8 +1,6 @@
 ---
-# tasks file for ansible-role-macos-hostname
-
-- name: Work out and set macOS HostName.
+- name: "Install and configure yabai."
   include_tasks: "yabai.yml"
 
-- name: Work out and set macOS LocalHostName.
+- name: "Install and configure skhd."
   include_tasks: "skhd.yml"
