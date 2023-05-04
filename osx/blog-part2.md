@@ -476,14 +476,14 @@ We have already seen a couple of examples such as the "become" plugin that lets 
 
 Now we have our roles, they are structured with tasks, variables, handlers, files and templates, maybe even some custom plugins under the hood. Lets take a look at how we can use them in our playbooks. 
 
-There are three ways we can use our roles: 
+There are three ways roles can be used in a playbook: 
 
-- at the play level with the "roles" option: the classic.
-- at the task level with "import_role": importing roles at a task level, otherwise the same as the classic option.
-- at the task level with "include_role": here we can dynamicly reuse our role as we please.
+- at the play level with the "roles" option: the classic approach.
+- at the task level with "import_role": staticly importing roles at a task level of the play, but otherwise the same behavior as the previous option.
+- at the task level with "include_role": here we can dynamicly reuse our role among our playbook tasks.
 
 
-So lets use our roles the classic way, from the entrypoint of our playbook
+So lets start with our roles in the classic way, from the entrypoint of our playbook
 
 > init-osx.yml
 
@@ -501,15 +501,16 @@ So lets use our roles the classic way, from the entrypoint of our playbook
     - role: yabai
 ```
 
-The roles we have listed here will be staticly imported and process and then Ansible will execute the playbook in the following order: 
+The roles we have listed here will be staticly imported and processed, and then Ansible will execute the playbook in the following order: 
 
-- Any "pre_task" and triggered handlers
+- Any playbook task marked as "pre_task" and their triggered handlers
 - each role listed, in order, and if any depedencies are found within the role, they are executed before the role itself.
 - Any tasks and their triggered handlers
-- an "post_task" and their handlers
+- an task marked as "post_task" and their handlers
 
+A quick not on pre- and post-tasks, these are a subset of tasks that we mark to be execeuted either before or after any other task, common from either role, dependecy, thrid-party or otherwise. 
 
-All of our roles and task can be tagged within a playbook, allowing us to group and run specific tasks depending on their tags. 
+Once we have lined up the roles we want to use in our playbook, we can do some extra housekeeping by taggin our roles and playbook tasks, allowing us to group and run specific roles and tasks depending on their tags. 
 
 Say we want to use the same playbook for multiple dev machines, but they all have a core setup in common, then we can tag all the roles we consider essential: 
 
@@ -524,6 +525,7 @@ Say we want to use the same playbook for multiple dev machines, but they all hav
     - role: dotfiles
       tags: ["core"]
     - role: fonts
+    - tags: ["ui"]
     - role: homebrew
     - role: terminal
     - role: yabai
@@ -538,7 +540,7 @@ or if the core roles have already been applied we can exclude them instead:
 > .ansible-playbook init-osx.yml --skip-tags core 
 
 
-from here we can also pass in parameters to our roles, for instance if we want to change our default values we can override the value found in our role: 
+From the playbook file we can also pass in parameters to our roles, for instance if we want to change the provided default values in a role, we can override the value from here: 
 
 ``` yaml
 ---
@@ -556,9 +558,10 @@ from here we can also pass in parameters to our roles, for instance if we want t
     - role: yabai
 ```
 
-The default behavior for a role that is included multiple times is to only run it once, but passing diffrent vars lets us run the same role mutiple times whitin one playbook. 
 
-The following example shows a playbook running two instances of a webserver, with diffrent vars:
+Passing variables into a role also allows us to run a role multiple times within the same playbook, something which is not possible to do if you simple include the roles repeatedly.
+
+Here we have an example that shows a playbook running two instances of a webserver, with diffrent vars:
 
 ``` yaml
 ---
@@ -579,7 +582,7 @@ The following example shows a playbook running two instances of a webserver, wit
       tags: ServerB
 ```
 
-If we instead prefer to work at a task level in our playbook, all the same static rules appies to a task importing the roles staticly in our playbook with the "import_role": 
+But if we instead prefer to work at a task level in our playbook, all the same static rules appies to a task importing the roles staticly in our playbook with the "import_role": 
 
 ``` yaml
 ---
@@ -603,8 +606,9 @@ If we instead prefer to work at a task level in our playbook, all the same stati
 
 ### including roles dynamicly
 
-Roles can also be dynamicly included in our tasks using the "include_role". 
+Roles can also be dynamicly included amoung our tasks using the "include_role". 
 These roles will be determined at runtime, and runs at the task level of our playbook. 
+
 The main advantage of dynamic roles is the flexibilty it provides, allowing us to conditionally import roles, by using Ansible facts and "when" statements: 
 
 ``` yaml
@@ -633,6 +637,8 @@ or we can include our roles based on provided variables:
         name: "{{ window_manager_role }}" 
     ...
 ```
+
+With dynamic inclusion we can simplify complex setups, and even save som processing time, since skipped roles doesn't need to be handled by Ansible. So we can make our playbooks more adaptable with dynamic role management, especially for multi-machine setups, where the enviroment and requiremnts can be large, complex and ever changing.
 
 ## conclusion
 
