@@ -1,19 +1,24 @@
 ---
-- name: "[main] Import omz tasks"
+- name: "[terminal]: Import omz tasks"
   import_tasks: omz.yml
-  tags: macterm
+  tags: terminal
 
-- name: "[misc]: clone bash-insulter"
+- name: "[terminal]: Import iterm2 tasks"
+  import_tasks: iterm2.yml
+  tags: terminal
+
+- name: "[terminal]: clone bash-insulter"
   git:
     repo: https://github.com/hkbakke/bash-insulter.git
     dest: "{{ config_dir }}/bash-insulter"
     version: master
     update: true
   become: true
-  tags: omz
+  tags: terminal
 
-- name: "[misc] install bash-insulter"
+- name: "[terminal]: install bash-insulter"
   ansible.builtin.copy:
     src: "{{ config_dir }}/bash-insulter/src/bash.command-not-found"
     dest: /etc/
   become: true
+  tags: terminal

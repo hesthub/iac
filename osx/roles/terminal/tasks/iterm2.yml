@@ -1,5 +1,5 @@
 ---
-- name: "Ensure iTerm2 is installed using Homebrew Cask"
+- name: "[iterm2]: Ensure iTerm2 is installed using Homebrew Cask"
   community.general.homebrew_cask:
     name: iterm2
     state: present
@@ -9,10 +9,21 @@
     - macterm
     - macterm_iterm2
 
-- name: "Close iTerm2 if it is running"
+- name: "[iterm2]: Close iTerm2 if it is running"
   ansible.builtin.shell: pgrep iTerm2 && killall iTerm2 && sleep 10 || echo 'iTerm2_NOT_STARTED'
   register: macterm_pkill
   changed_when: "'iTerm2_NOT_STARTED' not in macterm_pkill.stdout"
   tags:
     - macterm
     - macterm_iterm2
+
+- name:"[iterm2]: Ensure iTerm directories are initialized if they are not already."
+  command: "open -a /Applications/iTerm.app"
+  args:
+    creates: "~/Library/Application Support/iTerm2/DynamicProfiles/"
+
+- name: "[iterm2]: Ensure shell integration is installed."
+  shell: curl -L https://iterm2.com/misc/install_shell_integration.sh | bash
+  args:
+    warn: no
+  when: iterm2_shell_integration is defined and iterm2_shell_integration

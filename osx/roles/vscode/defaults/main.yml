@@ -5,28 +5,35 @@ default_brew_packages: []
 default_cask_packages:
   - visual-studio-code
 default_vscode_packages:
-  # vscode
-  - smlombardi.mariana
-  - laurenttreguier.vscode-simple-icons
-  - chrislajoie.vscode-modelines
-  - eamodio.gitlens
-  - wengerk.highlight-bad-chars
-  - stkb.rewrap
+  # Editor
+  - GitHub.copilot
+  - vscodevim.vim
+  - k--kato.intellij-idea-keybindings
 
   # yaml
   - redhat.vscode-yaml
+  - redhat.ansible
+  - ms-python.python #dependency for ansible
 
-  # js
-  - dbaeumer.vscode-eslint
+  # bash
+  - mads-hartmann.bash-ide-vscode
 
-  # php
-  - bmewburn.vscode-intelephense-client
-  - ikappas.phpcs
-  - junstyle.php-cs-fixer
-  - neilbrayfield.php-docblocker
+  # markdown
+  - yzhang.markdown-all-in-one
+  - marclipovsky.string-manipulation
 
-  # docker
-  - peterjausovec.vscode-docker
+  # json
+  - mohsen1.prettify-json
 
-  # mongo
-  - ms-azuretools.vscode-cosmosdb
+  # UI / UX
+  - arcticicestudio.nord-visual-studio-code
+  - biati.vscode-show-hide-excluded-files
+
+  - PKief.material-icon-theme
+
+  # Containers
+  - ms-azuretools.vscode-docker
+  - ms-vscode-remote.remote-containers
+
+  # management
+  - alefragnani.project-manager

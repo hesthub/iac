@@ -1,40 +1,12 @@
 ---
-- name: ({{jetbrains_product}}) Download {{ jetbrains_osx_product_url }}
-  get_url: url={{ jetbrains_osx_product_url }}
-    dest={{ jetbrains_osx_install_file_path }}
-    force=yes
+- name: Import the webserver role statically
+  import_role:
+    name: reimarstier.jetbrains_installer
+  vars:
+    jetbrains_installer_apps:
+      - name: "Webstorm"
+      - name: "GoLand"
+    jetbrains_installer_bin_dir: "/usr/local/bin"
+    jetbrains_installer_dir: "/usr/local"
   become: true
-  become_user: "{{ username }}"
-  tags: "product_tags"
-
-- name: ({{jetbrains_product}}) Mount {{ jetbrains_osx_install_file_path }} image
-  command: 'hdiutil attach "{{ jetbrains_osx_install_file_path }}"'
-  become: true
-  become_user: "{{ username }}"
-  tags: "product_tags"
-
-- name: ({{jetbrains_product}}) Remove existing app if present
-  file: path=/Applications/{{ jetbrains_osx_app_file_name }}
-    state=absent
-  become: true
-  become_user: "{{ username }}"
-  tags: "product_tags"
-
-- name: ({{jetbrains_product}}) Copy {{ jetbrains_osx_volume }}/{{ jetbrains_osx_app_file_name }} to Applications directory
-  command: 'cp -R "{{ jetbrains_osx_volume }}/{{ jetbrains_osx_app_file_name }}" /Applications'
-  become: true
-  become_user: "{{ username }}"
-  tags: "product_tags"
-
-- name: ({{jetbrains_product}}) Unmount /Volumes/{{ jetbrains_product_name }}
-  command: 'hdiutil detach "{{ jetbrains_osx_volume }}"'
-  become: true
-  become_user: "{{ username }}"
-  tags: "product_tags"
-
-- name: ({{jetbrains_product}}) Remove {{ jetbrains_osx_install_file_path }} install file
-  file: path={{ jetbrains_osx_install_file_path }}
-    state=absent
-  become: true
-  become_user: "{{ username }}"
-  tags: "product_tags"
+  tags: jetbrains

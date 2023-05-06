@@ -1,4 +1,6 @@
 ---
+homebrew_repo: https://github.com/Homebrew/brew
+
 homebrew_folders_base:
   - Cellar
   - Homebrew

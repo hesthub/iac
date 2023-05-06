@@ -3,7 +3,34 @@
   hosts: all
 
   roles:
+    - role: names
+      tags: ["names"]
+
+    - role: fonts
+      tags: ["fonts"]
+
+    - role: dotfiles
+      vars:
+        github_name: "hest-hub"
+      tags: ["dotfiles"]
+
+    - role: homebrew
+      tags: ["homebrew"]
+
+    - role: asdf
+      tags: ["asdf"]
+
+    - role: terminal
+      tags: ["terminal"]
+
+    - role: vscode
+      tags: ["vscode"]
+
+    - role: jetbrains
+      tags: ["jetbrains"] 
+
     - role: yabai
       tags: ["yabai"]
-    - role: names
-      tags: ["fonts"]
+
+    - role: macos-defaults
+      tags: ["macos-defaults"]
