@@ -17,7 +17,7 @@
     - macterm
     - macterm_iterm2
 
-- name:"[iterm2]: Ensure iTerm directories are initialized if they are not already."
+- name: "[iterm2]: Ensure iTerm directories are initialized if they are not already."
   command: "open -a /Applications/iTerm.app"
   args:
     creates: "~/Library/Application Support/iTerm2/DynamicProfiles/"
