@@ -1,0 +1,34 @@
+---
+- name: Perform brew installation.
+  block:
+    - name: Force update brew after installation.
+      command: "{{ homebrew_brew_bin_path }}/brew update --force"
+      when: not homebrew_binary.stat.exists
+
+    - name: Where is the cache?
+      command: "{{ homebrew_brew_bin_path }}/brew --cache"
+      register: homebrew_cache_path
+      changed_when: false
+      check_mode: false
+
+    - name: Check for Brewfile.
+      stat:
+        path: "{{ lookup('env', 'HOME') }}/Brewfile"
+      register: homebrew_brewfile
+      check_mode: false
+
+    - name: Install from Brewfile.
+      command: "{{ homebrew_brew_bin_path }}/brew bundle --verbose chdir={{ lookup('env', 'HOME') }}"
+      when: homebrew_brewfile.stat.exists
+      environment:
+        HOMEBREW_BUNDLE_MAS_SKIP: brew bundle list --mas --file $HOME/Brewfile | paste -sd " " -
+
+    - name: Upgrade all homebrew packages (if configured).
+      community.general.homebrew: update_homebrew=yes upgrade_all=yes
+      notify:
+        - Clear homebrew cache
+
+  # Privilege escalation is only required for inner steps when
+  # the `ansible_user_id` doesn't match the `ansible_user_id`
+  become: false
+  become_user: "{{ ansible_user_id }}"
