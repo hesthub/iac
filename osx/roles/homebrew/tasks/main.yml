@@ -1,8 +1,8 @@
 ---
 - name: "Install Homebrew"
   include_tasks: "install.yml"
-  when: install_homebrew
+  when: install_homebrew == true
 
 - name: "Install Homebrew packages."
   include_tasks: "packages.yml"
-  when: install_packages
+  when: install_packages == true
