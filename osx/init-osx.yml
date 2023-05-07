@@ -14,18 +14,16 @@
         github_name: "hest-hub"
       tags: ["dotfiles"]
 
-    - role: homebrew
+    - role: geerlingguy.mac.homebrew
       vars:
-        install_homebrew: true
-      tags: ["homebrew"]
+        homebrew_use_brewfile: false
+      tags: ["homebrew-install"]
 
     - role: asdf
       tags: ["asdf"]
 
     - role: homebrew
-      vars:
-        install_packages: true 
-      tags: ["homebrew"]
+      tags: ["homebrew-package"]
 
     - role: terminal
       tags: ["terminal"]
