@@ -94,7 +94,7 @@
       command: "{{ homebrew_brew_bin_path }}/brew bundle --verbose chdir={{ lookup('env', 'HOME') }}"
       when: homebrew_brewfile.stat.exists
       environment:
-        HOMEBREW_BUNDLE_MAS_SKIP: brew bundle list --mas --file {{ homebrew_brewfile }} | paste -sd " " -)
+        HOMEBREW_BUNDLE_MAS_SKIP: brew bundle list --mas --file $HOME/Brewfile | paste -sd " " -)
 
     - name: Upgrade all homebrew packages (if configured).
       community.general.homebrew: update_homebrew=yes upgrade_all=yes
