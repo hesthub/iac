@@ -14,11 +14,12 @@
         github_name: "hest-hub"
       tags: ["dotfiles"]
 
+    - role: asdf
+      tags: ["asdf"]
+
     - role: homebrew
       tags: ["homebrew"]
 
-    - role: asdf
-      tags: ["asdf"]
 
     - role: terminal
       tags: ["terminal"]
@@ -27,7 +28,7 @@
       tags: ["vscode"]
 
     - role: jetbrains
-      tags: ["jetbrains"] 
+      tags: ["jetbrains"]
 
     - role: yabai
       tags: ["yabai"]

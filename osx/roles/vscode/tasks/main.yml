@@ -1,6 +1,6 @@
 ---
-- name: extensions for vscode
-  shell: code --install-extension {{ item }}
+- name: Extensions for vscode
+  command: code --install-extension {{ item }}
   register: vscode_result
   changed_when: "'was successfully installed' in vscode_result.stdout"
   with_items:
