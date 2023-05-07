@@ -1,8 +1,8 @@
 ---
 - name: "Install Homebrew"
-  include_tasks: "yabai.yml"
-  when: "install_homebrew is defined and install_homebrew == true"
+  include_tasks: "install.yml"
+  when: install_homebrew
 
 - name: "Install Homebrew packages."
-  include_tasks: "skhd.yml"
-  when: "install_packages is defined and install_packages == true"
+  include_tasks: "packages.yml"
+  when: install_packages
