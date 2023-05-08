@@ -18,5 +18,5 @@
       - name: "nodejs"
         repository: "https://github.com/asdf-vm/asdf-nodejs.git"
         versions:
-          - 18.16
-        global: 18.16
+          - latest
+        global: latest
