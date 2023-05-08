@@ -1,12 +1,6 @@
 ---
-- name: Import the webserver role statically
-  import_role:
-    name: reimarstier.jetbrains_installer
-  vars:
-    jetbrains_installer_apps:
-      - name: "Webstorm"
-      - name: "GoLand"
-    jetbrains_installer_bin_dir: "/usr/local/bin"
-    jetbrains_installer_dir: "/usr/local"
-  become: true
-  tags: jetbrains
+- name: Print multi-line message
+  debug:
+    msg: |
+      Currently unable to run this role
+      since jetbrains-toolbox lacks a CLI.

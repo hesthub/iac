@@ -8,10 +8,6 @@
     homebrew_cask_apps:
       - visual-studio-code
   roles:
-
-    # - role: _debug
-    #  tags: ["debug"]
-
     - role: geerlingguy.mac.homebrew
       tags: ["homebrew"]
 
@@ -25,9 +21,6 @@
       vars:
         github_name: "hest-hub"
       tags: ["dotfiles"]
-
-    # - role: homebrew-install
-    #  tags: ["homebrew-install"]
 
     - role: asdf
       tags: ["asdf"]
@@ -44,8 +37,8 @@
     - role: yabai
       tags: ["yabai"]
 
-    - role: homebrew-packages
-      tags: ["homebrew-package"]
+    - role: brewfile
+      tags: ["brewfile"]
 
     - role: macos-defaults
       tags: ["macos-defaults"]

@@ -2,6 +2,5 @@
 roles:
   - name: elliotweiser.osx-command-line-tools
   - name: osx_provisioner.asdf
-  - name: reimarstier.jetbrains_installer
 collections:
   - name: geerlingguy.mac
