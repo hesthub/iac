@@ -7,7 +7,6 @@
     homebrew_use_brewfile: false
     homebrew_installed_packages:
       - visual-studio-code
-      - yabai
   roles:
 
     # - role: _debug
