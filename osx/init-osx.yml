@@ -2,10 +2,19 @@
 - name: Bootstrap OSX dev machine
   hosts: all
 
+
+  vars:
+    homebrew_use_brewfile: false
+    homebrew_installed_packages:
+      - visual-studio-code
+      - yabai
   roles:
 
-    #- role: _debug
+    # - role: _debug
     #  tags: ["debug"]
+
+    - role: geerlingguy.homebrew
+      tags: ["homebrew"]
 
     - role: names
       tags: ["names"]
@@ -18,8 +27,8 @@
         github_name: "hest-hub"
       tags: ["dotfiles"]
 
-    - role: homebrew-install
-      tags: ["homebrew-install"]
+    # - role: homebrew-install
+    #  tags: ["homebrew-install"]
 
     - role: asdf
       tags: ["asdf"]
