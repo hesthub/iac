@@ -34,11 +34,11 @@
     - role: jetbrains
       tags: ["jetbrains"]
 
-    - role: yabai
-      tags: ["yabai"]
-
     - role: brewfile
       tags: ["brewfile"]
+
+    - role: yabai
+      tags: ["yabai"]
 
     - role: macos-defaults
       tags: ["macos-defaults"]
