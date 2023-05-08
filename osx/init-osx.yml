@@ -13,7 +13,7 @@
     # - role: _debug
     #  tags: ["debug"]
 
-    - role: geerlingguy.homebrew
+    - role: geerlingguy.mac.homebrew
       tags: ["homebrew"]
 
     - role: names
