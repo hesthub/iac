@@ -1,0 +1,5 @@
+---
+homebrew_prefix: "/usr/local"
+homebrew_install_path: "{{ homebrew_prefix }}/Homebrew"
+homebrew_brew_bin_path: "{{ homebrew_prefix }}/bin"
+homebrew_clear_cache: true
