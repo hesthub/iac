@@ -1,10 +1,4 @@
 ---
-- name: "[iterm2]: Ensure iTerm2 is installed using Homebrew Cask"
-  community.general.homebrew_cask:
-    name: iterm2
-    state: present
-  register: macterm_iterm2_result
-  until: macterm_iterm2_result is succeeded
-  tags:
-    - macterm
-    - macterm_iterm2
+- name: Install iTerm2
+  become: false
+  homebrew_cask: name=iterm2 state=latest

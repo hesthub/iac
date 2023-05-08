@@ -3,6 +3,10 @@
   hosts: all
 
   roles:
+
+    - role: _debug
+      tags: ["debug"]
+
     - role: names
       tags: ["names"]
 
