@@ -1,4 +1,4 @@
 ---
-- name: Install iTerm2
-  become: false
-  homebrew_cask: name=iterm2 state=latest
+- community.general.homebrew:
+    name: iterm2
+    state: latest

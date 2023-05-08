@@ -1,13 +1,7 @@
 ---
-- name: "[iterm2]: Ensure iTerm2 is installed using Homebrew Cask"
-  community.general.homebrew_cask:
+- community.general.homebrew:
     name: iterm2
-    state: present
-  register: macterm_iterm2_result
-  until: macterm_iterm2_result is succeeded
-  tags:
-    - macterm
-    - macterm_iterm2
+    state: latest
 
 - name: "[iterm2]: Close iTerm2 if it is running"
   ansible.builtin.shell: pgrep iTerm2 && killall iTerm2 && sleep 10 || echo 'iTerm2_NOT_STARTED'
