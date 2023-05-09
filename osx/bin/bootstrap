@@ -6,4 +6,4 @@ sudo pip3 install --upgrade pip
 pip3 install --upgrade ansible
 ansible-galaxy install -r requirements.yml
 
-ansible-playbook -i "localhost," -c local init-osx.yml --ask-become-pass --tags  "homebrew, dotfiles, yabai, macos-defaults"
+ansible-playbook -i "localhost," -c local init-osx.yml --ask-become-pass --tags  "macos-defaults"
