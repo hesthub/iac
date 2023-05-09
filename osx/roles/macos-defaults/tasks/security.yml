@@ -1,0 +1,10 @@
+---
+- name: "Security: ask for password after screensaver"
+  command: defaults write com.apple.screensaver askForPassword -int 1
+
+- name: "Security: ask for password after delay"
+  command: defaults write com.apple.screensaver askForPasswordDelay -int 0
+
+- name: "Security: disable location services"
+  command: sudo defaults write /var/db/locationd/Library/Preferences/ByHost/com.apple.locationd.plist LocationServicesEnabled -bool NO
+  become: true

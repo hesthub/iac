@@ -9,7 +9,7 @@
     - yabai
 
 - name: "[yabai]: start brew service skhd"
-  command: brew services start skhd
+  command: skhd --start-service
   changed_when: false
   tags:
     - yabai

@@ -1,1 +1,21 @@
 ---
+- name: "Finder: Show extensions"
+  command: defaults write NSGlobalDomain "AppleShowAllExtensions" -bool "true" && killall Finder
+
+- name: "Finder: Show hidden files"
+  command: defaults write com.apple.finder "AppleShowAllFiles" -bool "true" && killall Finder
+
+- name: "Finder: Folders on top"
+  command: defaults write com.apple.finder "_FXSortFoldersFirst" -bool "true" && killall Finder
+
+- name: "Finder: Disable animations"
+  command: defaults write com.apple.finder DisableAllAnimations -bool true && killall Finder
+
+- name: "Finder: Avoid creating .DS_Store files on network volumes"
+  command: defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+
+- name: "Show the ~/Library folder"
+  command: chflags nohidden ~/Library
+
+- name: "Don't Ask confirmation for change extension"
+  command: defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false

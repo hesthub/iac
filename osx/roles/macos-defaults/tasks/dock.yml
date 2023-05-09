@@ -1,1 +1,24 @@
 ---
+- name: "Dock: Autohide dock"
+  command: defaults write com.apple.dock "autohide" -bool "true" && killall Dock
+
+- name: "Dock: Active applications only"
+  command: defaults write com.apple.dock "static-only" -bool "true" && killall Dock
+
+- name: "Dock: remove auto-hiding dock delay"
+  command: defaults write com.apple.dock autohide-delay -float 0 && killall Dock
+
+- name: "Dock: Hotcorner top left disabled"
+  command: defaults write com.apple.dock wvous-tl-corner -int 0
+
+- name: "Dock: Hotcorner top right disabled"
+  command: defaults write com.apple.dock wvous-tr-corner -int 0
+
+- name: "Dock: Hotcorner bottom left disabled"
+  command: defaults write com.apple.dock wvous-bl-corner -int 0
+
+- name: "Dock: Hotcorner bottom right disabled"
+  command: defaults write com.apple.dock wvous-br-corner -int 0
+
+- name: "Dock: remove default apps in dock"
+  command: defaults write com.apple.dock persistent-apps -array
