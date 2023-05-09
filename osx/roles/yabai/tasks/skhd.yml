@@ -9,6 +9,12 @@
     - yabai
 
 - name: "[yabai]: start brew service skhd"
+  command: skhd --install-service
+  changed_when: false
+  tags:
+    - yabai
+
+- name: "[yabai]: start brew service skhd"
   command: skhd --start-service
   changed_when: false
   tags:
