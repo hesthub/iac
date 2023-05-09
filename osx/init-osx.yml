@@ -5,6 +5,10 @@
 
   vars:
     homebrew_use_brewfile: false
+    homebrew_taps:
+      - koekeishiya/formulae
+    homebrew_installed_packages:
+      - yabai
     homebrew_cask_apps:
       - visual-studio-code
   roles:
