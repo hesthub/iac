@@ -2,9 +2,6 @@
 - name: "General: Interface style dark"
   command: defaults write -g AppleInterfaceStyle -string "Dark"
 
-- name: "[macos-defaults]: include desktop"
-  include_tasks: "desktop.yml"
-
 - name: "[macos-defaults]: include dock"
   include_tasks: "dock.yml"
 
