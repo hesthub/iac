@@ -1,15 +1,18 @@
 ---
+- name: "Finder: Hide all desktop icons"
+  command: defaults write com.apple.finder "CreateDesktop" -bool "false"
+
 - name: "Finder: Show extensions"
-  command: defaults write NSGlobalDomain "AppleShowAllExtensions" -bool "true" && killall Finder
+  command: defaults write NSGlobalDomain "AppleShowAllExtensions" -bool "true"
 
 - name: "Finder: Show hidden files"
-  command: defaults write com.apple.finder "AppleShowAllFiles" -bool "true" && killall Finder
+  command: defaults write com.apple.finder "AppleShowAllFiles" -bool "true"
 
 - name: "Finder: Folders on top"
-  command: defaults write com.apple.finder "_FXSortFoldersFirst" -bool "true" && killall Finder
+  command: defaults write com.apple.finder "_FXSortFoldersFirst" -bool "true"
 
 - name: "Finder: Disable animations"
-  command: defaults write com.apple.finder DisableAllAnimations -bool true && killall Finder
+  command: defaults write com.apple.finder DisableAllAnimations -bool true
 
 - name: "Finder: Avoid creating .DS_Store files on network volumes"
   command: defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
@@ -19,3 +22,6 @@
 
 - name: "Don't Ask confirmation for change extension"
   command: defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
+
+- name: "Finder: kill Finder process"
+  command: killall Finder
