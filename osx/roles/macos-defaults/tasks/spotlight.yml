@@ -1,5 +1,5 @@
 ---
-- name: "Spotlight: Hotcorner bottom right disabled"
+- name: "Spotlight: remove most indexing"
   command: defaults write com.apple.spotlight orderedItems -array \
     '{"enabled" = 1;"name" = "APPLICATIONS";}' \
     '{"enabled" = 1;"name" = "SYSTEM_PREFS";}' \
@@ -26,3 +26,4 @@
 
 - name: "Spotlight: load new settings"
   command: killall mds > /dev/null 2>&1
+  become: true
