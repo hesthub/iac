@@ -18,8 +18,8 @@
   tags:
     - yabai
 
-- name: "[yabai]: start brew service yabai"
-  command: brew services start yabai
+- name: "[yabai]: start the yabai service"
+  command: yabai --start-service
   changed_when: false
   tags:
     - yabai
