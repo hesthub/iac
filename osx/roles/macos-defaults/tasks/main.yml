@@ -2,11 +2,26 @@
 - name: "General: Interface style dark"
   command: defaults write -g AppleInterfaceStyle -string "Dark"
 
-- name: "Sound: Improve bluetooth audio quality"
-  command: defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
-- name: "Sound: disable beeping feedback"
-  command: defaults write NSGlobalDomain com.apple.sound.beep.feedback -int 0
-- name: "Sound: disable ui audio"
-  command: defaults write NSGlobalDomain com.apple.sound.uiaudio.enabled -int 0
-- name: "Sound: 0 beep volume"
-  command: defaults write NSGlobalDomain com.apple.sound.beep.volume -float 0.0
+- name: "[macos-defaults]: include desktop"
+  include_tasks: "desktop.yml"
+
+- name: "[macos-defaults]: include dock"
+  include_tasks: "dock.yml"
+
+- name: "[macos-defaults]: include finder"
+  include_tasks: "finder.yml"
+
+- name: "[macos-defaults]: include keyboard"
+  include_tasks: "keyboard.yml"
+
+- name: "[macos-defaults]: include security"
+  include_tasks: "security.yml"
+
+- name: "[macos-defaults]: include sound"
+  include_tasks: "sound.yml"
+
+- name: "[macos-defaults]: include spotlight"
+  include_tasks: "spotlight.yml"
+
+- name: "[macos-defaults]: include touchpad"
+  include_tasks: "touchpad.yml"

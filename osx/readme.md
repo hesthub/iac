@@ -33,4 +33,6 @@ files to restore:
 apps: 
 telepresence
 
+tools: chmod calculator in cli
+
 https://pijul.org/
