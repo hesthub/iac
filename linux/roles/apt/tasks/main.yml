@@ -1,0 +1,28 @@
+---
+- name: Update packages
+  ansible.builtin.apt:
+    update_cache: true
+    upgrade: true
+
+- name: Upgrade the OS (apt-get dist-upgrade)
+  ansible.builtin.apt:
+    upgrade: dist
+
+- name: Install packages
+  ansible.builtin.package:
+    name: "{{ packages }}"
+    state: latest
+
+- name: Remove useless packages from the cache
+  ansible.builtin.apt:
+    autoclean: yes
+
+- name: Remove dependencies that are no longer required
+  ansible.builtin.apt:
+    autoremove: yes
+
+- name: create directory for bat symlink
+  command: "mkdir -p ~/.local/bin"
+
+- name: symlink batcat to bat
+  command: "ln -s /usr/bin/batcat ~/.local/bin/bat"

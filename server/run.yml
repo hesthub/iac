@@ -6,4 +6,3 @@
     - role: system
     - role: geerlingguy.docker
     - role: geerlingguy.pip
-    - role: ngetchell.vscode

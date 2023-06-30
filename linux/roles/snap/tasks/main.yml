@@ -1,0 +1,15 @@
+---
+- name: Install and refresh core and snapd
+  community.general.snap:
+    name:
+      - core
+      - snapd
+    state: present
+
+- name: Install packages with snap
+  community.general.snap:
+    name: "{{ packages }}"
+    options:
+      - chezmoi:classic=true
+      - kubectl:classic=true
+      - code:classic=true

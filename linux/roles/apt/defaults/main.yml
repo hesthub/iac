@@ -1,0 +1,13 @@
+---
+username: hest
+
+password: changeme
+
+shell: /bin/zsh
+
+packages:
+  - exa
+  - mc
+  - htop
+  - wget
+  - bat

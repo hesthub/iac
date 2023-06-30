@@ -1,0 +1,22 @@
+---
+username: hest
+
+password: changeme
+
+shell: /bin/zsh
+
+packages:
+  - curl
+  - chezmoi             o -c
+  - diff-so-fancy
+  - docker
+  - fzf
+  - jq
+  - kubectl             o -c
+  - nvim
+  - bitwarden
+  - firefox
+  - slack
+  - insomnia
+  - postmani
+  - code
