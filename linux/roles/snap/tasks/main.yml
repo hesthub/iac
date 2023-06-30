@@ -12,7 +12,8 @@
     - name: Install packages with snap
       community.general.snap:
         name: "{{ packages }}"
-        options:
-          - chezmoi:classic=true
-          - kubectl:classic=true
-          - code:classic=true
+
+    - name: Install packages with snap --classic
+      community.general.snap:
+        name: "{{ classics }}"
+        classic: true
