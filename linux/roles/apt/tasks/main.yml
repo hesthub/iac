@@ -1,28 +1,33 @@
 ---
-- name: Update packages
-  ansible.builtin.apt:
-    update_cache: true
-    upgrade: true
+- name: Block
+  become: true
+  block:
+    - name: Update packages
+      ansible.builtin.apt:
+        update_cache: true
+        upgrade: true
 
-- name: Upgrade the OS (apt-get dist-upgrade)
-  ansible.builtin.apt:
-    upgrade: dist
+    - name: Upgrade the OS (apt-get dist-upgrade)
+      ansible.builtin.apt:
+        upgrade: dist
 
-- name: Install packages
-  ansible.builtin.package:
-    name: "{{ packages }}"
-    state: latest
+    - name: Install packages
+      ansible.builtin.package:
+        name: "{{ packages }}"
+        state: present
 
-- name: Remove useless packages from the cache
-  ansible.builtin.apt:
-    autoclean: yes
+    - name: Remove useless packages from the cache
+      ansible.builtin.apt:
+        autoclean: true
 
-- name: Remove dependencies that are no longer required
-  ansible.builtin.apt:
-    autoremove: yes
+    - name: Remove dependencies that are no longer required
+      ansible.builtin.apt:
+        autoremove: true
 
-- name: create directory for bat symlink
-  command: "mkdir -p ~/.local/bin"
+    - name: Create directory for bat symlink
+      ansible.builtin.command: "mkdir -p ~/.local/bin"
+      changed_when: true
 
-- name: symlink batcat to bat
-  command: "ln -s /usr/bin/batcat ~/.local/bin/bat"
+    - name: Symlink batcat to bat
+      ansible.builtin.command: "ln -s /usr/bin/batcat ~/.local/bin/bat"
+      changed_when: true
