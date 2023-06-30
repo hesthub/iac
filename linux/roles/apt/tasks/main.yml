@@ -2,15 +2,6 @@
 - name: Block
   become: true
   block:
-    - name: Update packages
-      ansible.builtin.apt:
-        update_cache: true
-        upgrade: true
-
-    - name: Upgrade the OS (apt-get dist-upgrade)
-      ansible.builtin.apt:
-        upgrade: dist
-
     - name: Install packages
       ansible.builtin.package:
         name: "{{ packages }}"
