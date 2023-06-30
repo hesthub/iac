@@ -1,16 +1,9 @@
 ---
-username: hest
-
-password: changeme
-
-shell: /bin/zsh
-
 packages:
   - curl
   - diff-so-fancy
   - docker
   - jq
-  - nvim
   - bitwarden
   - firefox
   - slack
@@ -21,3 +14,4 @@ classics:
   - chezmoi
   - kubectl
   - code
+  - nvim
