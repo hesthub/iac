@@ -24,10 +24,14 @@
       ansible.builtin.apt:
         autoremove: true
 
-    - name: Create directory for bat symlink
-      ansible.builtin.command: "mkdir -p ~/.local/bin"
-      changed_when: true
+    - name: Create directory ~/.local/bin
+      file:
+        path: ~/.local/bin
+        state: directory
+        mode: "0755"
 
-    - name: Symlink batcat to bat
-      ansible.builtin.command: "ln -s /usr/bin/batcat ~/.local/bin/bat"
-      changed_when: true
+    - name: Create symlink for batcat
+      file:
+        src: /usr/bin/batcat
+        dest: ~/.local/bin/bat
+        state: link
