@@ -15,5 +15,5 @@
   roles:
     - role: apt
     - role: snap
-    - role: cimon-io.asdfi
+    - role: cimon-io.asdf
       
