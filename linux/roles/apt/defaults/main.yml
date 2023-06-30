@@ -11,3 +11,4 @@ packages:
   - htop
   - wget
   - bat
+  - fzf

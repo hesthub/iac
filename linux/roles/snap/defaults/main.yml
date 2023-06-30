@@ -9,7 +9,6 @@ packages:
   - curl
   - diff-so-fancy
   - docker
-  - fzf
   - jq
   - nvim
   - bitwarden
