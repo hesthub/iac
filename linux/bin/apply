@@ -1,0 +1,2 @@
+#!/bin/sh
+ansible-playbook -i "localhost," -c local run.yml --ask-become-pass

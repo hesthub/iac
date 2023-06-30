@@ -1,9 +1,7 @@
 ---
-- hosts: all
-  become: true
+- name: Bootstrap linux dev machine
+  hosts: all
 
   roles:
-    - role: system
-    - role: geerlingguy.docker
-    - role: geerlingguy.pip
-    - role: ngetchell.vscode
+    - role: apt
+    - role: snap
