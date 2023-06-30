@@ -1,0 +1,22 @@
+---
+- name: SnapBlock
+  become: true
+  block:
+    - name: Install and refresh core and snapd
+      community.general.snap:
+        name:
+          - core
+          - snapd
+        state: present
+
+    - name: Refresh snapd
+      ansible.builtin.command: snap refresh snapd
+
+    - name: Install packages with snap
+      community.general.snap:
+        name: "{{ packages }}"
+
+    - name: Install packages with snap --classic
+      community.general.snap:
+        name: "{{ classics }}"
+        classic: true

@@ -1,11 +1,11 @@
 roles: 
-zsh
-font-fira-code
 jetbrains-toolbox
-install asdf
-apply dotfiles
-install fonts
+
+
+setup window ddmanager - bspwm? sway + wayland
+
+zsh
 setup terminal - kitty manual install?
-setup window manager - bspwm? sway + wayland
+font-fira-code
 
 git clone https://github.com/hest-hub/iac.git

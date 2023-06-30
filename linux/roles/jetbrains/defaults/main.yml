@@ -1,0 +1,17 @@
+---
+packages:
+  - curl
+  - diff-so-fancy
+  - docker
+  - jq
+  - bitwarden
+  - firefox
+  - slack
+  - insomnia
+  - postman
+
+classics:
+  - chezmoi
+  - kubectl
+  - code
+  - nvim
