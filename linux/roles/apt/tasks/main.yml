@@ -16,13 +16,13 @@
         autoremove: true
 
     - name: Create directory ~/.local/bin
-      file:
+      ansible.builtin.file:
         path: ~/.local/bin
         state: directory
         mode: "0755"
 
     - name: Create symlink for batcat
-      file:
+      ansible.builtin.file:
         src: /usr/bin/batcat
         dest: ~/.local/bin/bat
         state: link

@@ -11,6 +11,7 @@
 
     - name: Refresh snapd
       ansible.builtin.command: snap refresh snapd
+      changed_when: false
 
     - name: Install packages with snap
       community.general.snap:

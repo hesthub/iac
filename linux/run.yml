@@ -2,19 +2,7 @@
 - name: Bootstrap linux dev machine
   hosts: all
 
-  vars:
-    asdf_user: "{{ ansible_user_id }}"
-    asdf_group: "{{ ansible_user_gid }}"
-    asdf_plugins:
-    - name: "java"
-      repository: "https://github.com/halcyon/asdf-java.git"
-      versions:
-        - latest:adoptopenjdk-11
-        - latest:adoptopenjdk-17
-      global: latest:adoptopenjdk-17
-
   roles:
     - role: apt
     - role: snap
-    - role: cimon-io.asdf
-      
+    - role: dotfiles
