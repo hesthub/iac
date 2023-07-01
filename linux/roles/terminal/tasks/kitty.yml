@@ -3,8 +3,22 @@
   ansible.builtin.command: "curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin"
   changed_when: false
 
+- name: Create ~/.local/bin/ directory if it does not exist
+  ansible.builtin.file:
+    path: "~/.local/bin/"
+    state: directory
+    mode: "0755"
+    recurse: false
+
 - name: Create symbolic links to add kitty and kitten to PATH
-  ansible.builtin.command: "ln -sf ~/.local/kitty.app/bin/kitty ~/.local/kitty.app/bin/kitten ~/.local/bin/"
+  ansible.builtin.file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+    force: yes
+  with_items:
+    - { src: "~/.local/kitty.app/bin/kitty", dest: "~/.local/bin/kitty" }
+    - { src: "~/.local/kitty.app/bin/kitten", dest: "~/.local/bin/kitten" }
   changed_when: false
 
 - name: Place the kitty.desktop file somewhere it can be found by the OS
@@ -16,9 +30,29 @@
   changed_when: false
 
 - name: Update the paths to the kitty and its icon in the kitty.desktop file(s)
-  ansible.builtin.command: 'sed -i "s|Icon=kitty|Icon=/home/$USER/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" ~/.local/share/applications/kitty*.desktop'
+  ansible.builtin.lineinfile:
+    path: "{{ item }}"
+    regex: "^Icon=kitty$"
+    line: "Icon=/home/{{ ansible_user }}/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png"
+    backrefs: yes
+  with_fileglob:
+    - "~/.local/share/applications/kitty*.desktop"
   changed_when: false
 
-- name: If you want to open text files and images in kitty via your file manager also add the kitty-open.desktop file
-  ansible.builtin.command: 'sed -i "s|Exec=kitty|Exec=/home/$USER/.local/kitty.app/bin/kitty|g" ~/.local/share/applications/kitty*.desktop'
-  changed_when: false
+- name: Update the paths to the kitty and its icon in the kitty.desktop file(s)
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: file
+    mode: "0644"
+    content: |
+      [Desktop Entry]
+      Type=Application
+      Name=Kitty Open
+      Comment=Open files with Kitty Terminal
+      Icon=utilities-terminal
+      Exec=/home/{{ ansible_user }}/.local/kitty.app/bin/kitty %U
+      Categories=System;TerminalEmulator;
+      StartupNotify=true
+      Terminal=false
+  with_fileglob:
+    - "~/.local/share/applications/kitty*.desktop"
