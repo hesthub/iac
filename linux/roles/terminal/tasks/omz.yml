@@ -1,0 +1,49 @@
+---
+# install
+- name: "[omz]: Establish install location."
+  set_fact:
+    omz_install_path: "{{ lookup('env', 'HOME') }}/{{ omz_install_directory }}"
+
+- name: "[omz]: Clone Oh My ZSH repo for user."
+  git:
+    repo: "{{ omz_git_repository }}"
+    dest: "{{ omz_install_path }}"
+    update: true
+    accept_hostkey: true
+    version: "master"
+  notify:
+    - "[omz]: chmod omz dir"
+
+# OMZ plugins
+- name: "[omz]: Clone zsh-autosuggestions plugin"
+  git:
+    repo: https://github.com/zsh-users/zsh-autosuggestions
+    dest: "{{ config_dir }}/zsh/plugins/zsh-autosuggestions"
+    version: master
+    update: true
+  become: true
+  tags: omz
+
+- name: "[omz]: Clone zsh-history-substring-search plugin"
+  git:
+    repo: https://github.com/zsh-users/zsh-history-substring-search
+    dest: "{{ config_dir }}/zsh/plugins/zsh-history-substring-search"
+    version: master
+    update: true
+  become: true
+  tags: omz
+
+- name: "[omz]: Clone zsh-syntax-highlighting plugin"
+  git:
+    repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
+    dest: "{{ config_dir }}/zsh/plugins/zsh-syntax-highlighting"
+    version: master
+    update: true
+  become: true
+  tags: omz
+
+# Post setup
+- name: "[omz]: Set zsh as default shell"
+  user: name={{ ansible_user_id }} shell=/bin/zsh
+  become: true
+  tags: omz

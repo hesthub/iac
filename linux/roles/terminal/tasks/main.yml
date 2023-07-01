@@ -1,22 +1,24 @@
 ---
-- name: SnapBlock
+- name: "[terminal]: Import omz tasks"
+  import_tasks: omz.yml
+  tags: terminal
+
+- name: "[terminal]: Import iterm2 tasks"
+  import_tasks: iterm2.yml
+  tags: terminal
+
+- name: "[terminal]: clone bash-insulter"
+  git:
+    repo: https://github.com/hkbakke/bash-insulter.git
+    dest: "{{ config_dir }}/bash-insulter"
+    version: master
+    update: true
   become: true
-  block:
-    - name: Install and refresh core and snapd
-      community.general.snap:
-        name:
-          - core
-          - snapd
-        state: present
+  tags: terminal
 
-    - name: Refresh snapd
-      ansible.builtin.command: snap refresh snapd
-
-    - name: Install packages with snap
-      community.general.snap:
-        name: "{{ packages }}"
-
-    - name: Install packages with snap --classic
-      community.general.snap:
-        name: "{{ classics }}"
-        classic: true
+- name: "[terminal]: install bash-insulter"
+  ansible.builtin.copy:
+    src: "{{ config_dir }}/bash-insulter/src/bash.command-not-found"
+    dest: /etc/
+  become: true
+  tags: terminal

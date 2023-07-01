@@ -7,3 +7,5 @@
     - role: snap
     - role: dotfiles
     - role: diodonfrost.jetbrains_toolbox
+    - role: terminal
+    - role: chriscroome.kitty
