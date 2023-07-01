@@ -3,10 +3,6 @@
   import_tasks: omz.yml
   tags: terminal
 
-- name: "[terminal]: Import iterm2 tasks"
-  import_tasks: iterm2.yml
-  tags: terminal
-
 - name: "[terminal]: clone bash-insulter"
   git:
     repo: https://github.com/hkbakke/bash-insulter.git
