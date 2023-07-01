@@ -12,3 +12,6 @@ packages:
   - wget
   - bat
   - fzf
+  - fuse
+  - libfuse2
+# fuse - libfuse2 required for jetbrains toolbox

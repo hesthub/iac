@@ -6,3 +6,4 @@
     - role: apt
     - role: snap
     - role: dotfiles
+    - role: diodonfrost.jetbrains_toolbox
