@@ -33,7 +33,7 @@
   ansible.builtin.lineinfile:
     path: "{{ item }}"
     regex: "^Icon=kitty$"
-    line: "Icon=/home/{{ ansible_user }}/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png"
+    line: "Icon=/home/{{ lookup('env', 'USER') }}/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png"
     backrefs: yes
   with_fileglob:
     - "~/.local/share/applications/kitty*.desktop"
@@ -50,7 +50,7 @@
       Name=Kitty Open
       Comment=Open files with Kitty Terminal
       Icon=utilities-terminal
-      Exec=/home/{{ ansible_user }}/.local/kitty.app/bin/kitty %U
+      Exec=/home/{{ lookup('env', 'USER') }}/.local/kitty.app/bin/kitty %U
       Categories=System;TerminalEmulator;
       StartupNotify=true
       Terminal=false
