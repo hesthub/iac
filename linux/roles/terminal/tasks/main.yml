@@ -3,6 +3,10 @@
   import_tasks: omz.yml
   tags: terminal
 
+- name: "[terminal]: Import kitty tasks"
+  import_tasks: kitty.yml
+  tags: terminal
+
 - name: "[terminal]: clone bash-insulter"
   git:
     repo: https://github.com/hkbakke/bash-insulter.git
