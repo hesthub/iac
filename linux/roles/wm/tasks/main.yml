@@ -18,6 +18,24 @@
   community.general.make:
     chdir: /home/{{ ansible_user_id }}/shell
     target: local-install
-# sudo apt install git node-typescript make
-# git clone https ://github.com/pop-os/shell
-# make local-install
+
+- name: Install packages (shell-shortcuts)
+  ansible.builtin.package:
+    name:
+      - cargo
+      - rustc
+      - libgtk-3-dev
+    state: present
+  become: true
+
+- name: Clone the Git repository
+  ansible.builtin.git:
+    repo: https://github.com/pop-os/shell-shortcuts
+    dest: /home/{{ ansible_user_id }}/shell-shortcuts
+    version: 1.2.0
+
+- name: Run Make on pop shell
+  community.general.make:
+    chdir: /home/{{ ansible_user_id }}/shell-shortcuts
+    target: install
+  become: true
