@@ -3,9 +3,11 @@
   hosts: all
 
   roles:
-    - role: apt
-    - role: snap
-    - role: fonts
-    - role: dotfiles
-    - role: diodonfrost.jetbrains_toolbox
-    - role: terminal
+    # - role: apt
+    # - role: snap
+    # - role: fonts
+    # - role: dotfiles
+    # - role: diodonfrost.jetbrains_toolbox
+    # - role: terminal
+    - role: wm
+    
