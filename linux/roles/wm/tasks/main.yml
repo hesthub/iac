@@ -32,7 +32,6 @@
   ansible.builtin.git:
     repo: https://github.com/pop-os/shell-shortcuts
     dest: /home/{{ ansible_user_id }}/shell-shortcuts
-    version: 1.2.0
 
 - name: Run Make on pop shell
   community.general.make:
