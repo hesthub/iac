@@ -1,0 +1,10 @@
+---
+- name: Add universe repository
+  ansible.builtin.apt_repository:
+    repo: deb http://archive.ubuntu.com/ubuntu universe
+    state: present
+
+- name: Update repositories cache and install fonts
+  ansible.builtin.apt:
+    name: fonts-firacode
+    update_cache: yes
