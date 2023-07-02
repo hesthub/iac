@@ -15,7 +15,7 @@
     version: 1.2.0
 
 - name: Initialize dotfiles repo
-  ansible.builtin.command: cd /home/{{ ansible_user_id }}/shell
+  ansible.builtin.command: "cd /home/{{ ansible_user_id }}/shell"
   changed_when: false
 
 - name: Make install pop shell
