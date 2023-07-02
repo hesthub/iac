@@ -14,15 +14,14 @@
     dest: /home/{{ ansible_user_id }}/shell
     version: 1.2.0
 
-- name: Change to the repository directory
-  ansible.builtin.command:
-    cmd: cd /home/{{ ansible_user_id }}/shell
+- name: Initialize dotfiles repo
+  ansible.builtin.command: cd /home/{{ ansible_user_id }}/shell
   changed_when: false
 
 - name: Make install pop shell
   ansible.builtin.command:
     cmd: make local-install
   changed_when: false
-#sudo apt install git node-typescript make
-#git clone https ://github.com/pop-os/shell
-#make local-install
+# sudo apt install git node-typescript make
+# git clone https ://github.com/pop-os/shell
+# make local-install
