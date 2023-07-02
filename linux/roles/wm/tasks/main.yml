@@ -1,5 +1,5 @@
 ---
-- name: Install packages
+- name: Install packages (shell)
   ansible.builtin.package:
     name:
       - git
@@ -8,13 +8,13 @@
     state: present
   become: true
 
-- name: Clone the Git repository
+- name: Clone the Git repository (shell)
   ansible.builtin.git:
     repo: https://github.com/pop-os/shell
     dest: /home/{{ ansible_user_id }}/shell
     version: 1.2.0
 
-- name: Run Make on pop shell
+- name: Run Make (shell)
   community.general.make:
     chdir: /home/{{ ansible_user_id }}/shell
     target: local-install
@@ -28,12 +28,12 @@
     state: present
   become: true
 
-- name: Clone the Git repository
+- name: Clone the Git repository (shell-shortcuts)
   ansible.builtin.git:
     repo: https://github.com/pop-os/shell-shortcuts
     dest: /home/{{ ansible_user_id }}/shell-shortcuts
 
-- name: Run Make on pop shell
+- name: Run Make (shell-shortcuts)
   community.general.make:
     chdir: /home/{{ ansible_user_id }}/shell-shortcuts
     target: install
