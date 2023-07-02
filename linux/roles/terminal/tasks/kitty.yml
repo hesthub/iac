@@ -1,6 +1,6 @@
 ---
 - name: Download and install kitty
-  ansible.builtin.command: "curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin"
+  ansible.builtin.shell: "curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin"
   changed_when: false
 
 - name: Create ~/.local/bin/ directory if it does not exist
