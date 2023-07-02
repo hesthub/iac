@@ -17,7 +17,7 @@
 - name: Run Make on pop shell
   community.general.make:
     chdir: /home/{{ ansible_user_id }}/shell
-    target: install
+    target: local-install
 # sudo apt install git node-typescript make
 # git clone https ://github.com/pop-os/shell
 # make local-install
