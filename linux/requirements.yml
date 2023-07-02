@@ -1,3 +1,4 @@
 ---
 roles:
   - name: diodonfrost.jetbrains_toolbox
+  - name: community.general
