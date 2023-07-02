@@ -6,7 +6,7 @@
       - node-typescript
       - make
     state: present
-    become: true
+  become: true
 
 - name: Clone the Git repository
   ansible.builtin.git:
