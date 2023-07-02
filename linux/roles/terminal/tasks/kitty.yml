@@ -29,30 +29,10 @@
   ansible.builtin.command: "cp ~/.local/kitty.app/share/applications/kitty-open.desktop ~/.local/share/applications/"
   changed_when: false
 
-- name: Update the paths to the kitty and its icon in the kitty.desktop file(s)
-  ansible.builtin.lineinfile:
-    path: "{{ item }}"
-    regex: "^Icon=kitty$"
-    line: "Icon=/home/{{ lookup('env', 'USER') }}/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png"
-    backrefs: yes
-  with_fileglob:
-    - "~/.local/share/applications/kitty*.desktop"
+- name: Update paths to kitty.desktop files
+  ansible.builtin.command: 'sed -i "s|Icon=kitty|Icon=/home/$USER/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" ~/.local/share/applications/kitty*.desktop'
   changed_when: false
 
-- name: Update the paths to the kitty and its icon in the kitty.desktop file(s)
-  ansible.builtin.file:
-    path: "{{ item }}"
-    state: file
-    mode: "0644"
-    content: |
-      [Desktop Entry]
-      Type=Application
-      Name=Kitty Open
-      Comment=Open files with Kitty Terminal
-      Icon=utilities-terminal
-      Exec=/home/{{ lookup('env', 'USER') }}/.local/kitty.app/bin/kitty %U
-      Categories=System;TerminalEmulator;
-      StartupNotify=true
-      Terminal=false
-  with_fileglob:
-    - "~/.local/share/applications/kitty*.desktop"
+- name: Update paths to kitty.desktop files
+  ansible.builtin.command: 'sed -i "s|Exec=kitty|Exec=/home/$USER/.local/kitty.app/bin/kitty|g" ~/.local/share/applications/kitty*.desktop'
+  changed_when: false
