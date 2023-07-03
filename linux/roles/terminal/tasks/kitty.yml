@@ -1,5 +1,5 @@
 ---
-- name: Download and install kitty
+- name: "Download and install kitty"
   ansible.builtin.shell: "curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin"
   changed_when: false
 
