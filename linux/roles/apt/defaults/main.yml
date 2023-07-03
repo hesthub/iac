@@ -1,8 +1,4 @@
 ---
-username: hest
-
-password: changeme
-
 shell: /bin/zsh
 
 packages:
