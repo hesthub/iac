@@ -2,7 +2,7 @@
 shell: /bin/zsh
 
 packages:
-  # - exa
+  - exa
   - mc
   - htop
   - wget
