@@ -4,6 +4,13 @@ sudo xcodebuild -license
 export PATH="$HOME/Library/Python/3.9/bin:/opt/homebrew/bin:$PATH"
 sudo pip3 install --upgrade pip
 pip3 install --upgrade ansible
+
+cd $HOME
+
+git clone https://github.com/Hest-hub/iac
+
+cd ./iac/osx
+
 ansible-galaxy install -r requirements.yml
 
-ansible-playbook -i "localhost," -c local init-osx.yml --ask-become-pass --tags  "macos-defaults"
+ansible-playbook -i "localhost," -c local init-osx.yml --ask-become-passs
