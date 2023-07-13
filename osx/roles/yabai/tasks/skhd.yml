@@ -8,9 +8,15 @@
   tags:
     - yabai
 
-- name: "[yabai]: start brew service skhd"
+- name: "[yabai]:check if skhd is installed already"
+  stat:
+    path: "/Users/{{ ansible_user_id }}/Library/LaunchAgents/com.koekeishiya.skhd.plist"
+  register: skhd_service
+
+- name: "[yabai]: install brew service skhd"
   command: skhd --install-service
   changed_when: false
+  when: not skhd_service.stat.exists
   tags:
     - yabai
 

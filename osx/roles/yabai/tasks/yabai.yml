@@ -24,10 +24,16 @@
     state: directory
     mode: "0755"
 
+- name: "[yabai]: check if yabai is installed already"
+  stat:
+    path: "/Users/{{ ansible_user_id }}/Library/LaunchAgents/com.koekeishiya.yabai.plist"
+  register: yabai_service
+
 - name: "[yabai]: install the yabai service"
   command: yabai --install-service
   changed_when: false
   ignore_errors: True
+  when: not yabai_service.stat.exists
   tags:
     - yabai
 
