@@ -26,9 +26,6 @@
         github_name: "hest-hub"
       tags: ["dotfiles"]
 
-    - role: asdf
-      tags: ["asdf"]
-
     - role: terminal
       tags: ["terminal"]
 
