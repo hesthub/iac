@@ -27,11 +27,13 @@
 - name: "[yabai]: install the yabai service"
   command: yabai --install-service
   changed_when: false
+  ignore_errors: True
   tags:
     - yabai
 
 - name: "[yabai]: start the yabai service"
   command: yabai --start-service
   changed_when: false
+  ignore_errors: True
   tags:
     - yabai
