@@ -25,7 +25,13 @@
         delete_versions: []
         global: 20
       - name: nodejs 
-        repository: "https://github.com/asdf-community/asdf-python"
+        repository: "https://github.com/asdf-vm/asdf-nodejs.git"
+        versions:
+          - 20.4.0
+        delete_versions: []
+        global: 20.4.0
+      - name: python 
+        repository: "https://github.com/asdf-community/asdf-pythoni.git"
         versions:
           - 20.4.0
         delete_versions: []
