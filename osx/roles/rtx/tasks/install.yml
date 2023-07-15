@@ -13,7 +13,7 @@
     regexp: ^eval "$(rtx activate zsh)"
 
 - name: Source zshrc
-  ansible.builtin.shell: source {{ lookup('env', 'HOME') }}/.zshrc && echo bashrc sourced
+  ansible.builtin.shell: source {{ lookup('env', 'HOME') }}/.zshrc && echo zshrc sourced
   args:
-    executable: /bin/bash
+    executable: /usr/local/bin/zsh
   changed_when: false
