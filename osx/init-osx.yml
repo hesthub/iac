@@ -24,6 +24,12 @@
           - 20
         delete_versions: []
         global: 20
+      - name: nodejs 
+        repository: "https://github.com/asdf-community/asdf-python"
+        versions:
+          - 20.4.0
+        delete_versions: []
+        global: 20.4.0
   roles:
     - role: geerlingguy.mac.homebrew
       tags: ["homebrew"]
