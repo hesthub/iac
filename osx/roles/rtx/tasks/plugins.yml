@@ -2,18 +2,13 @@
 - name: "Install plugins"
   ansible.builtin.shell: >
     set -o pipefail
-    /usr/local/bin/rtx plugins add {{ item.name }} {{ item.repository | default() }}
+    /usr/local/bin/rtx plugins install {{ item.name }} {{ item.repository | default() }}
   args:
     creates: "{{ rtx_dir }}/plugins/{{ item.name }}"
   with_items: "{{ rtx_plugins }}"
   when: rtx_plugins | length > 0
   become: true
   become_user: "{{ rtx_user }}"
-
-- name: print plugin install command
-  ansible.builtin.debug:
-    msg: /usr/local/bin/rtx plugins add {{ item.name }} {{ item.repository | default() }}
-  with_items: "{{ rtx_plugins }}"
 
 - name: Specific tasks for {{ item }}
   ansible.builtin.include_tasks: plugins/{{ item }}.yml
