@@ -18,6 +18,12 @@
           - 1.20.1
         delete_versions: []
         global: 1.20.1
+      - name: java 
+        repository: ""
+        versions:
+          - 20
+        delete_versions: []
+        global: 20
   roles:
     - role: geerlingguy.mac.homebrew
       tags: ["homebrew"]

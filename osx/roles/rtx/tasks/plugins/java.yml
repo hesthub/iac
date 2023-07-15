@@ -1,0 +1,11 @@
+---
+- name: "[java]: install dependecies via brew"
+  community.general.homebrew:
+    name:
+      - bash
+      - curl
+      - unzip
+      - jq
+    state: present
+  register: deps_installed
+  until: deps_installed is succeeded
