@@ -33,9 +33,9 @@
       - name: python 
         repository: "https://github.com/asdf-community/asdf-python.git"
         versions:
-          - 20.4.0
+          - 3.6.12
         delete_versions: []
-        global: 20.4.0
+        global: 3.6.12
   roles:
     - role: geerlingguy.mac.homebrew
       tags: ["homebrew"]
