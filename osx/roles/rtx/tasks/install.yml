@@ -1,6 +1,7 @@
 ---
 # Brew install stable
-- community.general.homebrew:
+- name: "Install via Brew"
+  community.general.homebrew:
     name: rtx
     state: present
 

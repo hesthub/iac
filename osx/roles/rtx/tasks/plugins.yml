@@ -10,6 +10,10 @@
   become: true
   become_user: "{{ rtx_user }}"
 
+- name: print plugin install command
+  ansible.builtin.debug:
+    msg: /usr/local/bin/rtx plugins add {{ item.name }} {{ item.repository | default() }}
+
 - name: Specific tasks for {{ item }}
   ansible.builtin.include_tasks: plugins/{{ item }}.yml
   loop:
