@@ -1,22 +1,6 @@
 ---
-- name: Import the webserver role statically
-  import_role:
-    name: osx_provisioner.asdf
-  vars:
-    asdf_version: "v0.11.3"
-    asdf_plugins:
-      - name: "go"
-        repository: "https://github.com/kennyp/asdf-golang.git"
-        versions:
-          - 1.20.4
-        global: 1.20.4
-      - name: "java"
-        repository: "https://github.com/halcyon/asdf-java.git"
-        versions:
-          - openjdk-20.0.1
-        global: openjdk-20.0.1
-      - name: "nodejs"
-        repository: "https://github.com/asdf-vm/asdf-nodejs.git"
-        versions:
-          - latest
-        global: latest
+# tasks file for rtx
+
+- name: "Extract name into a list and register variable plugins_to_install from vars: rtx_plugins"
+  ansible.builtin.set_fact:
+    plugins_to_install: "{{ rtx_plugins | map(attribute='name') | list }}"

@@ -1,0 +1,13 @@
+---
+rtx_user: root
+rtx_group: root
+
+# by default, no plugins and apps installed, you have to pass vars to role like this
+# rtx_plugins:
+#   - name: erlang
+#     repository: ""
+#     versions:
+#       - 20.1
+#     delete_versions: []
+#     global: 20.1
+rtx_plugins: []
