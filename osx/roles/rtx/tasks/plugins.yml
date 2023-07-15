@@ -13,6 +13,7 @@
 - name: print plugin install command
   ansible.builtin.debug:
     msg: /usr/local/bin/rtx plugins add {{ item.name }} {{ item.repository | default() }}
+  with_items: "{{ rtx_plugins }}"
 
 - name: Specific tasks for {{ item }}
   ansible.builtin.include_tasks: plugins/{{ item }}.yml
