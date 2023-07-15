@@ -11,6 +11,19 @@
       - yabai
     homebrew_cask_apps:
       - visual-studio-code
+    rtx_plugins:
+      - name: golang 
+        repository: ""
+        versions:
+          - 1.20.1
+        delete_versions: []
+        global: 1.20.1
+      - name: nodejs 
+        repository: ""
+        versions:
+          - 20.4.0
+        delete_versions: []
+        global: 20.4.0
   roles:
     - role: geerlingguy.mac.homebrew
       tags: ["homebrew"]

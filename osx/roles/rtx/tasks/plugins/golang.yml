@@ -1,0 +1,9 @@
+---
+- name: "[golang]: install dependecies via brew"
+  community.general.homebrew:
+    name:
+      - coreutils
+      - curl
+    state: present
+  register: deps_installed
+  until: deps_installed is succeeded

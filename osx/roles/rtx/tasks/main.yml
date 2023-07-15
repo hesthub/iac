@@ -4,3 +4,9 @@
 - name: "Extract name into a list and register variable plugins_to_install from vars: rtx_plugins"
   ansible.builtin.set_fact:
     plugins_to_install: "{{ rtx_plugins | map(attribute='name') | list }}"
+
+- name: "Install rtx"
+  ansible.builtin.include_tasks: "install.yml"
+
+- name: "Install plugins"
+  ansible.builtin.include_tasks: "plugins.yml"

@@ -1,7 +1,7 @@
 ---
-rtx_user: root
-rtx_group: root
-
+rtx_user: { { ansible_user_id } }
+rtx_group: { { ansible_user_gid } }
+rtx_dir: "{{ ansible_user_id }}/.local/share/rtx"
 # by default, no plugins and apps installed, you have to pass vars to role like this
 # rtx_plugins:
 #   - name: erlang
