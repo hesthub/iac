@@ -31,7 +31,7 @@
         delete_versions: []
         global: 20.4.0
       - name: python 
-        repository: "https://github.com/asdf-community/asdf-pythoni.git"
+        repository: "https://github.com/asdf-community/asdf-python.git"
         versions:
           - 20.4.0
         delete_versions: []
