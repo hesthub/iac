@@ -1,8 +1,7 @@
 ---
 - name: "Install plugins"
   ansible.builtin.shell: >
-    set -o pipefail
-    /usr/local/bin/rtx plugins install {{ item.name }} {{ item.repository | default() }}
+    rtx plugins install {{ item.name }} {{ item.repository | default() }}
   args:
     creates: "{{ rtx_dir }}/plugins/{{ item.name }}"
   with_items: "{{ rtx_plugins }}"
@@ -24,8 +23,7 @@
 
 - name: Install apps
   ansible.builtin.shell: >
-    set -o pipefail
-    /usr/local/bin/rtx install {{ item.0.name }}@{{ item.1 }}
+    rtx install {{ item.0.name }}@{{ item.1 }}
   args:
     creates: "{{ rtx_dir }}/installs/{{ item.0.name }}/{{ item.1 }}"
   with_subelements:
@@ -38,8 +36,7 @@
 
 - name: Uninstall apps
   ansible.builtin.shell: >
-    set -o pipefail
-    /usr/local/bin/rtx uninstall {{ item.0.name }}@{{ item.1 }}
+    rtx uninstall {{ item.0.name }}@{{ item.1 }}
   args:
     removes: "{{ rtx_dir }}/installs/{{ item.0.name }}/{{ item.1 }}"
   with_subelements:

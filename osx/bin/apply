@@ -1,2 +1,2 @@
 #!/bin/sh
-ANSIBLE_VERBOSITY=3 ansible-playbook -i "localhost," -c local init-osx.yml --ask-become-pass --tags "rtx"
+ANSIBLE_VERBOSITY=2 ansible-playbook -i "localhost," -c local init-osx.yml --ask-become-pass --tags "rtx"
