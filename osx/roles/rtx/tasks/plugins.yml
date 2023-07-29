@@ -6,6 +6,7 @@
   with_items: "{{ rtx_plugins }}"
   when: rtx_plugins | length > 0
   become_user: "{{ rtx_user }}"
+  changed_when: false
 
 - name: Specific tasks for {{ item }}
   ansible.builtin.include_tasks: plugins/{{ item }}.yml
@@ -13,11 +14,8 @@
     - nodejs
     - python
     - golang
-    - ruby
-    - erlang
-    - ruby
     - java
-    - php
+    - rust
   when: item in plugins_to_install
 
 - name: Install apps
@@ -31,6 +29,7 @@
       skip_missing: true
   when: rtx_plugins | length > 0
   become_user: "{{ rtx_user }}"
+  changed_when: false
 
 - name: Uninstall apps
   ansible.builtin.shell: "rtx uninstall {{ item.0.name }}@{{ item.1 }}"
@@ -43,6 +42,7 @@
       skip_missing: true
   when: rtx_plugins | length > 0
   become_user: "{{ rtx_user }}"
+  changed_when: false
 
 - name: Set global app versions
   ansible.builtin.shell: "rtx use --global {{ item.name }}@{{ item.global | default(item.versions | difference(item.delete_versions|default([])) | sort | first) }}"
