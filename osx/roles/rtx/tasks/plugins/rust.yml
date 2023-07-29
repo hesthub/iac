@@ -1,8 +1,0 @@
----
-- name: "[Rust]: install dependecies via brew"
-  community.general.homebrew:
-    name:
-      - make
-    state: present
-  register: deps_installed
-  until: deps_installed is succeeded

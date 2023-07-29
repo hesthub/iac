@@ -2,7 +2,6 @@
 - name: Bootstrap OSX dev machine
   hosts: all
 
-
   vars:
     homebrew_use_brewfile: false
     homebrew_taps:
@@ -12,35 +11,30 @@
     homebrew_cask_apps:
       - visual-studio-code
     rtx_plugins:
-      - name: golang 
-        repository: ""
+      - name: golang
         versions:
-          - 1.20.1
-        delete_versions: []
-        global: 1.20.1
-      - name: java 
-        repository: ""
+          - latest 
+        global: latest 
+      - name: java
         versions:
+          - 17
           - 20
-        delete_versions: []
         global: 20
-      - name: nodejs 
-        repository: "https://github.com/asdf-vm/asdf-nodejs.git"
+      - name: rust
         versions:
-          - 20.4.0
-        delete_versions: []
-        global: 20.4.0
-      - name: python 
+          - latest
+        global: latest 
+      - name: python
         repository: "https://github.com/asdf-community/asdf-python.git"
         versions:
           - 3.11.4
-        delete_versions: []
         global: 3.11.4
+
   roles:
     - role: geerlingguy.mac.homebrew
       tags: ["homebrew"]
 
-    - role: rtx
+    - role: hesthub.ansible_rtx
       tags: ["rtx"]
 
     - role: names

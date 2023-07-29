@@ -2,5 +2,6 @@
 roles:
   - name: elliotweiser.osx-command-line-tools
   - name: osx_provisioner.asdf
+  - name: hesthub.ansible_rtx
 collections:
   - name: geerlingguy.mac
