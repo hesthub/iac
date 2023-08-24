@@ -1,9 +1,24 @@
-<mxfile host="app.diagrams.net" modified="2023-08-24T14:38:58.246Z" agent="Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/116.0" version="21.6.9" etag="Xj_XDec1BRO2-imQ1qwm" type="github">
+<mxfile host="app.diagrams.net" modified="2023-08-24T15:32:37.969Z" agent="Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/116.0" etag="gjmMvrdi4NJW4Eh8Z0vh" version="21.6.9" type="github">
   <diagram name="Page-1" id="xM6W7CXxCn5evTDXGApJ">
-    <mxGraphModel>
+    <mxGraphModel dx="1878" dy="963" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="YRY-hGgRW1LfnFlCra8q-1" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://www.fractal-design.com/app/uploads/2019/06/Node_304_White_9-Left-Front-Above-810x810.jpg;" vertex="1" parent="1">
+          <mxGeometry y="60" width="300" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="YRY-hGgRW1LfnFlCra8q-2" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://www.fractal-design.com/app/uploads/2021/07/Torrent_Black_RGB_TGL_1-Left-Front-810x810.jpg;" vertex="1" parent="1">
+          <mxGeometry x="320" y="60" width="410" height="410" as="geometry" />
+        </mxCell>
+        <mxCell id="YRY-hGgRW1LfnFlCra8q-3" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://www.fractal-design.com/app/uploads/2021/07/Torrent_White_TGC_1-Left-Remove-810x810.jpg;" vertex="1" parent="1">
+          <mxGeometry x="750" y="60" width="410" height="410" as="geometry" />
+        </mxCell>
+        <mxCell id="YRY-hGgRW1LfnFlCra8q-4" value="&lt;div align=&quot;left&quot;&gt;NixOS:&lt;br&gt;&amp;nbsp; system:&lt;br&gt;&amp;nbsp; Bitwarden&lt;br&gt;&amp;nbsp; vim&lt;br&gt;&amp;nbsp; Docker-tui&lt;br&gt;&amp;nbsp;&lt;br&gt;&amp;nbsp; Docker:&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp; Homer&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp; Jellyfin https://github.com/linuxserver/docker-jellyfin&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp; arch-delugevpn https://github.com/binhex/arch-delugevpn&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp; Sonarr&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp; Radarr&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp; OpenBooks&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp; Nextcloud ?&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp; Jackett&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp; HomeAssisant&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp; PiHole ?&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;project zomboid gameserver&lt;br&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;align=left;" vertex="1" parent="1">
+          <mxGeometry x="-50" y="460" width="350" height="350" as="geometry" />
+        </mxCell>
+        <mxCell id="YRY-hGgRW1LfnFlCra8q-5" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://media.distrelec.com/Web/WebShopImages/landscape_large/9-/01/Raspberry%20Pi-PI4%20MODEL%20B_1GB-30152779-01.jpg;" vertex="1" parent="1">
+          <mxGeometry x="320" y="500" width="411.58" height="230" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
